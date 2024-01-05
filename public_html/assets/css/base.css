@@ -1,0 +1,27 @@
+:root {
+    --bg-color: #f1f1f1;
+    --fg-color: #1d1d1d;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 100vh;
+    background: var(--bg-color);
+    color: var(--fg-color);
+}
+
+header {
+    padding: 10px;
+}
+
+main {
+    flex: 1;
+}
