@@ -16,7 +16,7 @@ session_start();
         <?php require_once("../../includes/header.php")?>
     </header>
     <main>
-        <form id="registerForm" method="post">
+        <form id="registerForm">
             <label for="first-name">Ime</label>
             <input type="text" name="first-name" id="first-name" required>
             <span id="fnameErr"></span>

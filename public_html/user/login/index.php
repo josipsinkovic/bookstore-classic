@@ -9,20 +9,24 @@ session_start();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/assets/css/base.css">
+    <script src="/assets/js/validation.js"></script>
 </head>
 <body>
     <header>
         <?php require_once("../../includes/header.php")?>
     </header>
     <main>
-        <form action="/user/auth/login.php" method="post">
+        <form id="loginForm">
             <label for="email">E-mail</label>
             <input type="text" name="email" id="email" required>
+            <span id="emailErr"></span>
             <br>
             <label for="password">Lozinka</label>
             <input type="password" name="password" id="password" required>
+            <span id="passErr"></span>
             <br>
-            <input type="button" value="Prijavi se">
+            <span id="globalMessage"></span>
+            <input type="button" id="loginSubmit" value="Prijavi se">
         </form>
     </main>
     <footer>
