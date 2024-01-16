@@ -22,6 +22,7 @@ This document functions as a comprehensive record, documenting all the tools, la
 
 - Stack Overflow (https://stackoverflow.com/)
 - PHP manual (https://www.php.net/manual/en/langref.php)
+- W3Schools PHP Tutorial (https://www.w3schools.com/php/default.asp)
 - Git & GitHub Tutorial (https://www.youtube.com/watch?v=RGOj5yH7evk&ab_channel=freeCodeCamp.org)
 - Git docs (https://git-scm.com/docs)
 - GitHub docs (https://docs.github.com/en)
