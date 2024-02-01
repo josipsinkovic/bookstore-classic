@@ -10,6 +10,7 @@ session_start();
     <title>Document</title>
     <link rel="stylesheet" href="/assets/css/base.css">
     <script src="/assets/js/validation.js"></script>
+    <script src="https://kit.fontawesome.com/8bbbed924d.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
