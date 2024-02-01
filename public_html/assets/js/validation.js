@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Validate first name input
         if (inputFirstName === "") {
             fnameErr = "Greška: Obvezno";
-        } else if (!/^[a-zA-Z-' ]*$/.test(inputFirstName)) {
+        } else if (!/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(inputFirstName)) {
             fnameErr = "Greška: Neispravan format";
         } else {
             fnameErr = "";
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
         // Validate last name input
         if (inputLastName === "") {
             lnameErr = "Greška: Obvezno";
-        } else if (!/^[a-zA-Z-' ]*$/.test(inputLastName)) {
+        } else if (!/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(inputLastName)) {
             lnameErr = "Greška: Neispravan format";
         } else {
             lnameErr = "";
