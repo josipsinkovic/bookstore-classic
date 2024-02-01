@@ -18,8 +18,27 @@ CREATE TABLE Books (
     format_height       smallint unsigned not null,
     description         text,
     image_url           varchar(255) not null,
+    quantity            int unsigned not null,
     PRIMARY KEY(book_id),
     FOREIGN KEY (author) REFERENCES Authors(author_id)
+);
+
+CREATE TABLE Discounts (
+    book_id             int unsigned not null,
+    discount            decimal(5, 2) not null,
+    PRIMARY KEY(book_id, discount),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
+);
+
+CREATE TABLE Reviews (
+    review_id           int unsigned not null auto_increment,
+    book_id             int unsigned not null,
+    first_name          varchar(50) not null,
+    last_name           varchar(50) not null,
+    review_text         text not null,
+    review_date         date default current_date(),
+    PRIMARY KEY(review_id),
+    FOREIGN KEY (book_id) REFERENCES Books(book_id)
 );
 
 CREATE TABLE Customers (
