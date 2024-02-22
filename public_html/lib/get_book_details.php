@@ -19,7 +19,7 @@ if (empty($divIds)) {
 }
 
 // SQL query for getting book details, condition should look like this: WHERE B.book_id IN (5,2,9,18,1,2,7)
-$sql = "SELECT B.book_id, B.image_url, B.title, A.first_name, A.last_name, B.price FROM Books AS B LEFT JOIN Authors AS A ON B.author = A.author_id WHERE B.book_id IN (" . implode(',', $divIds) . ")";
+$sql = "SELECT B.book_id, B.image_url, B.title, A.first_name, A.last_name, B.price, B.quantity, D.discount FROM Books AS B LEFT JOIN Authors AS A ON B.author = A.author_id LEFT JOIN Discounts AS D ON B.book_id = D.book_id WHERE B.book_id IN (" . implode(',', $divIds) . ")";
 
 // Execute SQL query
 $stmt = $conn->prepare($sql);
@@ -37,6 +37,8 @@ while ($row = $result->fetch_assoc()) {
     $book_firstName = $row["first_name"];
     $book_lastName = $row["last_name"];
     $book_price = $row["price"];
+    $book_quantity = $row["quantity"];
+    $book_discount = $row["discount"];
 
     // Create an associative array for each book and append it to the bookData array
     $bookData[] = array(
@@ -45,7 +47,9 @@ while ($row = $result->fetch_assoc()) {
         'book_name' => $book_name,
         'book_firstName' => $book_firstName,
         'book_lastName' => $book_lastName,
-        'book_price' => $book_price . "€"
+        'book_price' => $book_price,
+        'book_quantity' => $book_quantity,
+        'book_discount' => $book_discount
     );
 }
 

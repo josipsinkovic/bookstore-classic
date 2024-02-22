@@ -99,7 +99,35 @@ document.addEventListener("DOMContentLoaded", async function() {
 
                 // Display the author's full name based on conditions
                 div.querySelector('.book-author').textContent = (bookInfo.book_firstName === null && bookInfo.book_lastName === null) ? "" : (bookInfo.book_firstName === null) ? bookInfo.book_lastName : bookInfo.book_firstName + " " + bookInfo.book_lastName;
-                div.querySelector('.book-price').textContent = bookInfo.book_price;
+
+                // Check if the book has a discount
+                if (bookInfo.book_discount === null) {
+                    // If there is no discount, display the book's regular price and hide elements related to discounts
+                    div.querySelector('.book-price').textContent = bookInfo.book_price + '€';
+                    div.querySelector('.old-price').style.display = 'none';
+                    div.querySelector('.price-reduction').style.display = 'none';
+                } else {
+                    // If the book has a discount, display the book's new price and price reduction indicator
+                    div.querySelector('.old-price').style.display = 'block';
+                    div.querySelector('.old-price').textContent = bookInfo.book_price + '€';
+
+                    // Calculate new price
+                    let discount = bookInfo.book_discount;
+                    let newPrice = (bookInfo.book_price * (1 - discount / 100)).toFixed(2);
+
+                    div.querySelector('.book-price').textContent = newPrice + '€';
+                    div.querySelector('.price-reduction').style.display = 'block';
+                    div.querySelector('.price-reduction').textContent = '-' + discount + '%';
+                }
+                
+                // Check if the book is out of stock
+                if (bookInfo.book_quantity != 0) {
+                    div.querySelector('.cart').style.display = 'flex';
+                    div.querySelector('.not-available').style.display = 'none';
+                } else {
+                    div.querySelector('.not-available').style.display = 'flex';
+                    div.querySelector('.cart').style.display = 'none';
+                }
             }
         });
     }

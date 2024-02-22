@@ -145,6 +145,7 @@ main .container {
 
 .book[id]:not([id="undefined"]) {
     display: flex;
+    position: relative;
 }
 
 .book p, .book h4 {
@@ -155,4 +156,53 @@ main .container {
 
 .book img {
     width: 170px;
+    height: 271.283px;
+}
+
+.book .price {
+    display: flex;
+}
+
+.book .price p {
+    margin: 0 3px;
+}
+
+.book .price .old-price {
+    display: none;
+    text-decoration: line-through;
+}
+
+.book .price-reduction {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    padding: 8px 4px;
+    background: #3737e0;
+    color: #fff;
+}
+
+.book .cart {
+    display: flex;
+    width: 120px;
+    border: 1px solid #000;
+}
+
+.book .cart .icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.book .cart p {
+    text-transform: uppercase;
+}
+
+.book .not-available {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    border: 1px solid #000;
 }

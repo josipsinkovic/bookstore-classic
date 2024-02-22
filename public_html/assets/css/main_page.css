@@ -25,6 +25,7 @@ main .container {
     padding: 22px 15px;
     background: #fff;
     text-align: center;
+    z-index: 1;
 }
 
 .banner .left, .new-products .left, .croatian-literature .left {
