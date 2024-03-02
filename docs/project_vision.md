@@ -12,5 +12,7 @@ Here are initial functionalities the app should have:
 - Users should be able to add items (books) to shopping cart even if they aren't logged in
 - There should be secure and user-friendly checkout process
 - Users should be able to see their order history in informations about their account
+- For every book there should be a section for tracking user reviews
+- An admin should be able to apply discounts to specific books
 - Website should have responsive design
 - ? Provide an interface for admin

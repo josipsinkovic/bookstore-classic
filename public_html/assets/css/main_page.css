@@ -1,0 +1,79 @@
+@import "var.css";
+
+main i {
+    cursor: pointer;
+}
+
+main .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 1200px;
+}
+
+.banner {
+    width: 1000px;
+    position: relative;
+}
+
+.banner .buttons i, .new-products .buttons i, .croatian-literature .buttons i {
+    padding: 22px 15px;
+    background: #fff;
+    text-align: center;
+    z-index: 1;
+}
+
+.banner .left, .new-products .left, .croatian-literature .left {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.banner .right, .new-products .right, .croatian-literature .right {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0, -50%);
+}
+
+.banner img {
+    width: 100%;
+}
+
+.banner .carousel-item {
+    display: none;
+}
+
+.banner .carousel-item.active {
+    display: block;
+}
+
+.new-products {
+    width: 1000px;
+    position: relative;
+}
+
+.new-products .carousel-item, .croatian-literature .carousel-item {
+    display: none;
+}
+
+.new-products .carousel-item.active, .discounts .carousel-item.active, .croatian-literature .carousel-item.active {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.discounts {
+    width: 1000px;
+}
+
+.croatian-literature {
+    width: 1000px;
+    position: relative;
+}
+
+/*.carousel-item:has([id="undefined"]) {
+    display: none;
+}*/

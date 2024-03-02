@@ -1,0 +1,146 @@
+@import "var.css";
+
+main .container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 1200px;
+}
+
+.product-details {
+    display: flex;
+    width: 1000px;
+    margin: 25px 0;
+}
+
+.product-details .image {
+    padding: 10px;
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.product-details .image .price-reduction {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 50%;
+    padding: 8px 4px;
+    background: #3737e0;
+    color: #fff;
+}
+
+.product-details .image img {
+    width: 330px;
+}
+
+.product-details .product-info {
+    padding: 10px;
+    flex: 1;
+}
+
+.product-info .product-author {
+    margin-bottom: 8px;
+    font-size: 18px;
+    height: 24.67px;
+}
+
+.product-info .product-name {
+    margin: 10px 0;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.product-info .product-price {
+    display: flex;
+    margin: 20px 0 30px;
+    font-size: 25px;
+}
+
+/*.product-price .old-price:has([style="display:none"]) + .book-price {
+    margin-left: 6px;
+}*/
+
+.product-info .product-price .old-price {
+    display: none;
+    text-decoration: line-through;
+}
+
+.product-cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-block: 1px solid #000;
+}
+
+.product-cart .quantity {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-cart .add-to-cart {
+    padding: 10px;
+    background: #3737e0;
+    border-radius: 40px;
+    color: #fff;
+}
+
+.product-attributes {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    row-gap: 30px;
+    margin-top: 30px;
+}
+
+.product-attributes > * {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.product-attributes > * > * {
+    margin: 0 5px;
+}
+
+.product-attributes .icon {
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.product-attributes .details {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-about {
+    margin: 25px 0;
+}
+
+.product-about .buttons {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    border-bottom: 1px solid #000;
+}
+
+.product-about .buttons > * {
+    padding: 10px;
+}
+
+.product-about .product-description {
+    margin: 10px 0;
+}
+
+.similar-products {
+    width: 100%;
+}
+
+.similar-products-container {
+    display: flex;
+    justify-content: center;
+}

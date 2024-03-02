@@ -10,6 +10,7 @@ This document functions as a comprehensive record, documenting all the tools, la
 - OS: Arch Linux (https://archlinux.org/)
 - IDE: Visual Studio Code (https://code.visualstudio.com/)
 - Version Control System: git (https://git-scm.com/)
+- Hosting: 000webhost (https://www.000webhost.com/)
 - Terminal emulator: Konsole (https://konsole.kde.org/)
 - phpMyAdmin (https://www.phpmyadmin.net/)
 - Namecheap Logo Maker (https://www.namecheap.com/logo-maker/)
