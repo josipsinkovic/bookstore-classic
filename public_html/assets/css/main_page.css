@@ -1,9 +1,5 @@
 @import "var.css";
 
-.book {
-    display: none;
-}
-
 main i {
     cursor: pointer;
 }
@@ -74,5 +70,10 @@ main .container {
 }
 
 .croatian-literature {
+    width: 1000px;
     position: relative;
 }
+
+/*.carousel-item:has([id="undefined"]) {
+    display: none;
+}*/

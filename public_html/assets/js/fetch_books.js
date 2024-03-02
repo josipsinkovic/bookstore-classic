@@ -43,6 +43,13 @@ document.addEventListener("DOMContentLoaded", async function() {
                 promises.push(fetchData("SELECT book_id FROM Books WHERE original_language = 'Hrvatski'"));
                 classNames.push("croatian-literature");
             }
+            if (document.querySelector(".similar-products")) {
+                let url = window.location.href;
+                let splitURL = url.split('/');
+                let bookID = parseInt(splitURL[splitURL.length - 2]);
+                promises.push(fetchData(`SELECT book_id FROM Books WHERE NOT book_id = ${bookID} ORDER BY CASE WHEN author = (SELECT author FROM Books WHERE book_id = ${bookID}) THEN 1 WHEN original_language = (SELECT original_language FROM Books WHERE book_id = ${bookID}) THEN 2 WHEN publication_year = (SELECT publication_year FROM Books WHERE book_id = ${bookID}) THEN 3 WHEN binding = (SELECT binding FROM Books WHERE book_id = ${bookID}) THEN 4 END; `));
+                classNames.push("similar-products");
+            }
             
             // After all promises are resolved, assign book IDs to corresponding elements
             Promise.all(promises).then(results => {
@@ -94,6 +101,20 @@ document.addEventListener("DOMContentLoaded", async function() {
             let bookInfo = bookData.find(book => book.id == parseInt(id));
 
             if (bookInfo) {
+                // Create a link for each book
+                let links = div.querySelectorAll('a');
+                const replacements = { 'Č': 'c', 'č': 'c', 'Ć': 'c', 'ć': 'c', 'Ž': 'z', 'ž': 'z', 'Š': 's', 'š': 's', 'Đ': 'd', 'đ': 'd' };
+                function convertToSlug(text) {
+                    return text.toLowerCase()
+                        .replace(/ /g, '-') // Replace spaces with '-'
+                        .replace(/[ČĆŽŠĐčćžšđ]/g, function(match) { // Replace non-ASCII characters
+                            return replacements[match] || match;
+                        });
+                }
+                links.forEach(function(link) {
+                    link.href = '/product/' + convertToSlug(bookInfo.book_name + '') + '/' + id;
+                });
+
                 div.querySelector('img').src = bookInfo.image_url;
                 div.querySelector('.book-name').textContent = bookInfo.book_name;
 

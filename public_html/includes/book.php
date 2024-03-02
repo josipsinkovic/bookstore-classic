@@ -1,10 +1,12 @@
-<img src="" alt="">
+<a href=""><img src="" alt=""></a>
 <p class="book-author"></p>
-<h4 class="book-name"></h4>
+<a href="">
+    <h4 class="book-name"></h4>
+</a>
 <div class="price">
     <p class="old-price"></p>
     <p class="book-price"></p>
-    <p class="price-reduction">-20%</p>
+    <p class="price-reduction"></p>
 </div>
 <div class="cart">
     <div class="icon">
