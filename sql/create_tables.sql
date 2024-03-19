@@ -8,7 +8,7 @@ CREATE TABLE Authors (
 CREATE TABLE Books (
     book_id             int unsigned not null auto_increment,
     title               nvarchar(50) not null,
-    publication_year    smallint unsigned,
+    publication_date    date,
     author              int unsigned,
     price               decimal(10, 2) not null,
     pages_number        int unsigned not null,

@@ -50,6 +50,83 @@ document.addEventListener("DOMContentLoaded", async function() {
                 promises.push(fetchData(`SELECT book_id FROM Books WHERE NOT book_id = ${bookID} ORDER BY CASE WHEN author = (SELECT author FROM Books WHERE book_id = ${bookID}) THEN 1 WHEN original_language = (SELECT original_language FROM Books WHERE book_id = ${bookID}) THEN 2 WHEN publication_year = (SELECT publication_year FROM Books WHERE book_id = ${bookID}) THEN 3 WHEN binding = (SELECT binding FROM Books WHERE book_id = ${bookID}) THEN 4 END; `));
                 classNames.push("similar-products");
             }
+            if (document.querySelector(".category")) {
+                // Get the index of the current page and number of products per page
+                let url = window.location.search;
+                let params = new URLSearchParams(url);
+                let pageValue = params.get('page');
+                let perPage = params.get('perPage');
+                if (pageValue === null) pageValue = 1;
+                else pageValue = parseInt(pageValue);
+                if (perPage === null) perPage = 20;
+
+                // Choose default selected item for the number of products per page
+                let options = document.querySelectorAll("option");
+                options.forEach(element => {
+                    if (element.value == perPage) {
+                        element.selected = true;
+                    } else element.selected = false;
+                });
+
+                // Don't display the left arrow if we're on the first page
+                if (pageValue == 1) {
+                    document.querySelector(".prethodna-stranica").style.display = "none";
+                }
+
+                if (document.querySelector(".category-new-product")) {
+                    promises.push(fetchData("SELECT book_id FROM Books ORDER BY publication_year DESC LIMIT " + perPage + " OFFSET " + ((pageValue - 1) * perPage)));
+                    classNames.push("category-new-product");
+                }
+                if (document.querySelector(".category-world-literature")) {
+                    promises.push(fetchData(`SELECT book_id FROM Books WHERE NOT original_language = "Hrvatski" LIMIT ` + perPage + ` OFFSET ` + ((pageValue - 1) * perPage)));
+                    classNames.push("category-world-literature");
+                }
+                if (document.querySelector(".category-croatian-literature")) {
+                    promises.push(fetchData(`SELECT book_id FROM Books WHERE original_language = "Hrvatski" LIMIT ` + perPage + ` OFFSET ` + ((pageValue - 1) * perPage)));
+                    classNames.push("category-croatian-literature");
+                }
+                if (document.querySelector(".category-discounts")) {
+                    promises.push(fetchData(`SELECT Books.book_id FROM Books INNER JOIN Discounts ON Books.book_id = Discounts.book_id ORDER BY Discounts.discount DESC LIMIT ` + perPage + ` OFFSET ` + ((pageValue - 1) * perPage)));
+                    classNames.push("category-discounts");
+                }
+                if (document.querySelector(".category-search-products")) {
+                    let searchQuery = params.get('search_q');
+                    document.querySelector(".search-products-header > h1").textContent = searchQuery;
+                    promises.push(fetchData(`SELECT b.book_id FROM Books AS b LEFT JOIN Authors AS a ON b.author = a.author_id WHERE (b.title LIKE CONCAT('%', '` + searchQuery + `', '%')) OR (a.last_name LIKE CONCAT('%', '` + searchQuery + `', '%')) OR (a.first_name LIKE CONCAT('%', '` + searchQuery + `', '%')) LIMIT ` + perPage + ` OFFSET ` + ((pageValue - 1) * perPage)));
+                    classNames.push("category-search-products");
+                }
+
+                document.querySelector(".prethodna-stranica").addEventListener("click", function() {
+                    // Decrease the page parameter in the URL and redirect to previous page
+                    if (params.has('page')) {
+                        params.set('page', pageValue - 1);
+                    } else {
+                        params.append('page', pageValue - 1);
+                    }
+                    window.location.href = window.location.pathname + '?' + params.toString();
+                });
+                document.querySelector(".sljedeca-stranica").addEventListener("click", function() {
+                    // Increase the page parameter in the URL and redirect to next page
+                    if (params.has('page')) {
+                        params.set('page', pageValue + 1);
+                    } else {
+                        params.append('page', pageValue + 1);
+                    }
+                    window.location.href = window.location.pathname + '?' + params.toString();
+                });
+                document.querySelector("select").addEventListener("change", function() {
+                    // Redirect to page with proper number of products per page
+                    let select = document.querySelector("select");
+                    let value = select.options[select.selectedIndex].value;
+                    if (params.has('perPage')) {
+                        params.set('perPage', value);
+                    } else {
+                        params.append('perPage', value);
+                    }
+                    window.location.href = window.location.pathname + '?' + params.toString();
+                });
+            }
+            
             
             // After all promises are resolved, assign book IDs to corresponding elements
             Promise.all(promises).then(results => {
@@ -58,6 +135,18 @@ document.addEventListener("DOMContentLoaded", async function() {
                     let bookIds = results[i];
                     for (let j = 0; j < books.length; j++) {
                         books[j].id = bookIds[j];
+                    }
+                    
+                    // Only for categories, don't display the right arrow if there are less products on the page than expected 
+                    if (classNames[i].includes("category")) {
+                        let url = window.location.search;
+                        let params = new URLSearchParams(url);
+                        let perPage = params.get('perPage');
+                        if (perPage === null) perPage = 20;
+
+                        if (bookIds.length < perPage) {
+                            document.querySelector(".sljedeca-stranica").style.display = "none";
+                        }
                     }
                 }
                 resolve(); // Resolve promise when all IDs are assigned

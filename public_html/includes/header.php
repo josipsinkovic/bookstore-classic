@@ -1,3 +1,5 @@
+<script src="/assets/js/search.js"></script>
+
 <div class="container">
     <div class="header-logo">
         <a href="/">
@@ -36,13 +38,13 @@
 </div>
 <div class="navigation">
     <div class="header-nav">
-        <a href="">Svjetski klasici</a>
-        <a href="">Hrvatski klasici</a>
+        <a href="/product/category/world-literature/">Svjetski klasici</a>
+        <a href="/product/category/croatian-literature/">Hrvatski klasici</a>
         <a href="">Drama</a>
         <a href="">Poezija</a>
         <a href="">Fikcija</a>
         <a href="">Romani</a>
-        <a href="">Popusti</a>
+        <a href="/product/category/discounts/">Popusti</a>
     </div>
 </div>
 

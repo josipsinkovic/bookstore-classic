@@ -57,7 +57,7 @@ session_start();
                 <div class="new-products-header">
                     <h1>Novi proizvodi</h1>
                     <div class="show-all">
-                        <a href="">Prikaži sve</a>
+                        <a href="/product/category/new-products/">Prikaži sve</a>
                     </div>
                 </div>
                 <div class="carousel">
@@ -135,7 +135,7 @@ session_start();
                 <div class="discounts-header">
                     <h1>Proizvodi na akciji</h1>
                     <div class="show-all">
-                        <a href="">Prikaži sve</a>
+                        <a href="/product/category/discounts/">Prikaži sve</a>
                     </div>
                 </div>
                 <div class="carousel">
@@ -177,7 +177,7 @@ session_start();
                 <div class="croatian-literature-header">
                     <h1>Hrvatski klasici</h1>
                     <div class="show-all">
-                        <a href="">Prikaži sve</a>
+                        <a href="/product/category/croatian-literature/">Prikaži sve</a>
                     </div>
                 </div>
                 <div class="carousel">
