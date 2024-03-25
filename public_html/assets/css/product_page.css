@@ -119,6 +119,7 @@ main .container {
 
 .product-about {
     margin: 25px 0;
+    width: 1000px;
 }
 
 .product-about .buttons {
@@ -130,10 +131,41 @@ main .container {
 
 .product-about .buttons > * {
     padding: 10px;
+    cursor: pointer;
 }
 
 .product-about .product-description {
     margin: 10px 0;
+}
+
+.product-description, .product-reviews {
+    display: none;
+} 
+
+.visible {
+    display: flex;
+}
+
+.fa-star {
+    color: #aaa;
+}
+
+.fa-star.black-star {
+    color: #1e3050;
+}
+
+.review-item {
+    display: flex;
+    flex-direction: column;
+    margin: 10px 0;
+}
+
+.review-about {
+    display: flex;
+}
+
+.review-about p {
+    margin: 0 10px;
 }
 
 .similar-products {

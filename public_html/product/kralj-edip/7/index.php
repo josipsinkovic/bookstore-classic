@@ -12,6 +12,7 @@ session_start();
     <link rel="stylesheet" href="/assets/css/product_page.css">
     <script src="/assets/js/fetch_products.js"></script>
     <script src="/assets/js/fetch_books.js"></script>
+    <script src="/assets/js/reviews.js"></script>
     <script src="https://kit.fontawesome.com/8bbbed924d.js" crossorigin="anonymous"></script>
 </head>
 <body>

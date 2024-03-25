@@ -83,9 +83,9 @@
             <div class="button-description active">Opis proizvoda</div>
             <div class="button-reviews">Recenzije</div>
         </div>
-        <div class="product-description"></div>
+        <div class="product-description visible"></div>
         <div class="product-reviews">
-            
+            <?php require('reviews.php'); ?>
         </div>
     </div>
     <div class="similar-products">

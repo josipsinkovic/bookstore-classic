@@ -35,8 +35,10 @@ CREATE TABLE Reviews (
     book_id             int unsigned not null,
     first_name          nvarchar(50) not null,
     last_name           nvarchar(50) not null,
-    review_text         nvarchar(1000) not null,
-    review_date         date default current_date(),
+    email               varchar(255) not null,
+    review_rating       int not null,
+    review_text         nvarchar(1000),
+    review_date         datetime default current_timestamp(),
     PRIMARY KEY(review_id),
     FOREIGN KEY (book_id) REFERENCES Books(book_id)
 );
