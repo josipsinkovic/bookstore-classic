@@ -1,0 +1,86 @@
+@import "var.css";
+
+main .container {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+}
+
+.cart-container {
+    display: flex;
+}
+
+.cart-title {
+    margin: 20px 0 30px;
+}
+
+.cart-no-products {
+    display: none;
+}
+
+.cart-table {
+    display: none;
+    flex-direction: column;
+    width: 1000px;
+}
+
+.cart-table table {
+    width: 1000px;
+    border-collapse: collapse;
+}
+
+.cart-table table th, .cart-table table td {
+    text-align: center;
+    border-block: 1px solid #000;
+    padding: 8px 0;
+}
+
+.cart-table img {
+    width: 100px;
+    vertical-align: middle;
+}
+
+.table-header > :first-child {
+    text-align: left;
+}
+
+.cart-table tr:not(.table-header) > :first-child {
+    text-align: left;
+}
+
+.cart-table tr:not(.table-header) > :first-child > :first-child {
+    margin-right: 10px;
+}
+
+.old-price {
+    display: none;
+    text-decoration: line-through;
+}
+
+.cart-buttons {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #000;
+}
+
+.cart-checkout {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    align-self: flex-start;
+    margin: 0 5px;
+    padding: 10px;
+}
+
+.checkout-data th {
+    vertical-align: top;
+    text-align: left;
+}
+
+.checkout-button {
+    width: 100%;
+}
+
+.button-checkout {
+    width: 100%;
+}

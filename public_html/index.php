@@ -13,6 +13,7 @@ session_start();
     <script src="/assets/js/fetch_books.js"></script>
     <script src="/assets/js/carousel.js"></script>
     <script src="/assets/js/quotes.js"></script>
+    <script src="/assets/js/cart.js"></script>
     <script src="https://kit.fontawesome.com/8bbbed924d.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -57,7 +58,7 @@ session_start();
                 <div class="new-products-header">
                     <h1>Novi proizvodi</h1>
                     <div class="show-all">
-                        <a href="">Prikaži sve</a>
+                        <a href="/product/category/new-products/">Prikaži sve</a>
                     </div>
                 </div>
                 <div class="carousel">
@@ -135,7 +136,7 @@ session_start();
                 <div class="discounts-header">
                     <h1>Proizvodi na akciji</h1>
                     <div class="show-all">
-                        <a href="">Prikaži sve</a>
+                        <a href="/product/category/discounts/">Prikaži sve</a>
                     </div>
                 </div>
                 <div class="carousel">
@@ -177,7 +178,7 @@ session_start();
                 <div class="croatian-literature-header">
                     <h1>Hrvatski klasici</h1>
                     <div class="show-all">
-                        <a href="">Prikaži sve</a>
+                        <a href="/product/category/croatian-literature/">Prikaži sve</a>
                     </div>
                 </div>
                 <div class="carousel">

@@ -1,3 +1,5 @@
+<script src="/assets/js/search.js"></script>
+
 <div class="container">
     <div class="header-logo">
         <a href="/">
@@ -11,9 +13,12 @@
         </button>
     </div>
     <div class="header-account">
-        <button id="cart">
-            <i class="fa-solid fa-cart-shopping fa-2x"></i>
-        </button>
+        <a href="/checkout/cart/">
+            <button id="cart">
+                <i class="fa-solid fa-cart-shopping fa-2x"></i>
+                <div class="cart-counter"></div>
+            </button>
+        </a>
         <div class="user-hover">
             <button id="user">
                 <i class="fa-solid fa-user fa-2x"></i>
@@ -36,13 +41,13 @@
 </div>
 <div class="navigation">
     <div class="header-nav">
-        <a href="">Svjetski klasici</a>
-        <a href="">Hrvatski klasici</a>
+        <a href="/product/category/world-literature/">Svjetski klasici</a>
+        <a href="/product/category/croatian-literature/">Hrvatski klasici</a>
         <a href="">Drama</a>
         <a href="">Poezija</a>
         <a href="">Fikcija</a>
         <a href="">Romani</a>
-        <a href="">Popusti</a>
+        <a href="/product/category/discounts/">Popusti</a>
     </div>
 </div>
 

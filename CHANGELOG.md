@@ -1,5 +1,26 @@
 # Changelog
 
+## v0.4.0 (2024-04-02)
+
+- added pages for book sections (new products, croatian literature...)
+- implemented search functionality
+- implemented user reviews functionality
+    - users can put a review on each book
+    - in order to leave a review, user must input e-mail (not shown to other users), first name, last name, grading and (optionally) description about the book
+- implemented shopping cart functionality
+    - users can add items and choose quantity of items that they want to add to cart
+    - on the cart page, users can edit their order (delete elements from the cart, change quantity...)
+    - the total order price is calculated and everything is ready for implementation of checkout process
+
+## v0.3.0 (2024-03-01)
+
+- implemented structuring for the index.php file
+- added structure for website header
+- implemented automatic retrieval of basic book information from database on the homepage
+    - book information: name, author, image, price, discount, stock availability
+- implemented separate page for individual books
+    - page has extensive book information, section "book description", book reviews (*need to be implemented) and related products 
+
 ## v0.2.0 (2024-01-16)
 
 Implement register and login functionality for user
@@ -13,7 +34,7 @@ Implement register and login functionality for user
     - check if e-mail and password are correct
 - dynamic header
     - store user information in the '$_SESSION' variable
-    - display "Account" and "Log Uut" if the user is logged in
+    - display "Account" and "Log Out" if the user is logged in
     - display "Log In" and "Register" when the user isn't logged in
 
 ## v0.1.0 (2024-01-06)

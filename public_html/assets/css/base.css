@@ -54,6 +54,7 @@ header .container {
     border-bottom-right-radius: 10px;
     outline: none;
     font-size: 1rem;
+    cursor: pointer;
 }
 
 .header-search #search:focus {
@@ -85,8 +86,23 @@ header .container {
     color: #3737e0;
 }
 
-.header-account > * {
+.header-account * {
     cursor: pointer;
+}
+
+.header-account #cart {
+    position: relative;
+}
+
+.header-account .cart-counter {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #fff;
+    padding: 3px 6px;
+    border-radius: 50px;
+    color: #3737e0;
+    display: none;
 }
 
 .user-hover .user-dropdown {
@@ -188,19 +204,20 @@ main .container {
     color: #fff;
 }
 
-.book .cart {
+.book .cart-button {
     display: flex;
+    justify-content: center;
     width: 120px;
     border: 1px solid #000;
 }
 
-.book .cart .icon {
+.book .cart-button .icon {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.book .cart p {
+.book .cart-button p {
     text-transform: uppercase;
 }
 

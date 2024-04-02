@@ -14,7 +14,7 @@ mysqli_set_charset($conn, "utf8");
 $bookID = $_POST['bookID'];
 
 // SQL query for getting book details
-$sql = "SELECT B.title, A.first_name, A.last_name, B.publication_year, B.price, D.discount, B.pages_number, B.original_language, B.binding, B.format_width, B.format_height, B.description, B.image_url, B.quantity FROM Books AS B LEFT JOIN Authors AS A ON B.author = A.author_id LEFT JOIN Discounts AS D ON B.book_id = D.book_id WHERE B.book_id = ?;";
+$sql = "SELECT B.title, A.first_name, A.last_name, YEAR(B.publication_year) AS publication_year, B.price, D.discount, B.pages_number, B.original_language, B.binding, B.format_width, B.format_height, B.description, B.image_url, B.quantity FROM Books AS B LEFT JOIN Authors AS A ON B.author = A.author_id LEFT JOIN Discounts AS D ON B.book_id = D.book_id WHERE B.book_id = ?;";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $bookID);
@@ -43,5 +43,8 @@ while ($row = $result->fetch_assoc()) {
         'quantity' => $row['quantity']
     );
 }
+
+$stmt->close();
+$conn->close();
 
 echo json_encode($bookData);
