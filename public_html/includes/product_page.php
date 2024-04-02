@@ -1,4 +1,12 @@
 <div class="container">
+    <div class="added-to-cart-message">
+        <p class="cart-message"></p>
+        <div class="see-cart">
+            <a href="/checkout/cart">
+                <p>Vidi košaricu</p>
+            </a>
+        </div>
+    </div>
     <div class="product-details">
         <div class="image">
             <img src="" alt="">
@@ -14,9 +22,9 @@
             <div class="product-cart">
                 <div class="quantity">
                     <label for="quantity">Količina:</label>
-                    <input class="product-quantity" id="quantity" type="number" min="1" step="1" value="1" name="quantity">
+                    <input class="product-quantity" id="quantity" type="number" min="1" step="1" value="1" name="quantity" oninput="this.value = this.value.replace(/[^0-9]/g, '');">
                 </div>
-                <div class="add-to-cart">
+                <div class="cart-button">
                     <p>Dodaj u košaricu</p>
                 </div>
             </div>

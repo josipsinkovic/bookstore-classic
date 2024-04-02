@@ -81,7 +81,7 @@ main .container {
     flex-direction: column;
 }
 
-.product-cart .add-to-cart {
+.product-cart .cart-button {
     padding: 10px;
     background: #3737e0;
     border-radius: 40px;
@@ -175,4 +175,24 @@ main .container {
 .similar-products-container {
     display: flex;
     justify-content: center;
+}
+
+.added-to-cart-message {
+    display: none;
+    justify-content: space-between;
+    width: 1000px;
+    padding: 30px 10px;
+    background: #fff;
+}
+
+.cart-message {
+    display: flex;
+    align-items: center;
+}
+
+.see-cart {
+    padding: 10px;
+    background: #3737e0;
+    border-radius: 40px;
+    color: #fff;
 }

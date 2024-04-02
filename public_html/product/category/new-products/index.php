@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="/assets/css/base.css">
     <link rel="stylesheet" href="/assets/css/categories.css">
     <script src="/assets/js/fetch_books.js"></script>
+    <script src="/assets/js/cart.js"></script>
     <script src="https://kit.fontawesome.com/8bbbed924d.js" crossorigin="anonymous"></script>
 </head>
 <body>

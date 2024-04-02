@@ -8,7 +8,7 @@
     <p class="book-price"></p>
     <p class="price-reduction"></p>
 </div>
-<div class="cart">
+<div class="cart-button">
     <div class="icon">
         <i class="fa-solid fa-cart-shopping fa-1x"></i>
     </div>

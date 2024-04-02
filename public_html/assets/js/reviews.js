@@ -188,7 +188,9 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Set timeout for button because button is created via php script
     function set() {
-        document.querySelector('#show-more-reviews').addEventListener('click', displayReviews);
+        if (document.querySelector('#show-more-reviews')) {
+            document.querySelector('#show-more-reviews').addEventListener('click', displayReviews);
+        }
     }
     setTimeout(set, 3000);
 });

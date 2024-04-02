@@ -13,9 +13,12 @@
         </button>
     </div>
     <div class="header-account">
-        <button id="cart">
-            <i class="fa-solid fa-cart-shopping fa-2x"></i>
-        </button>
+        <a href="/checkout/cart/">
+            <button id="cart">
+                <i class="fa-solid fa-cart-shopping fa-2x"></i>
+                <div class="cart-counter"></div>
+            </button>
+        </a>
         <div class="user-hover">
             <button id="user">
                 <i class="fa-solid fa-user fa-2x"></i>

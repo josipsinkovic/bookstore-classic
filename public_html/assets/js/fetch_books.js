@@ -232,11 +232,11 @@ document.addEventListener("DOMContentLoaded", async function() {
                 
                 // Check if the book is out of stock
                 if (bookInfo.book_quantity != 0) {
-                    div.querySelector('.cart').style.display = 'flex';
+                    div.querySelector('.cart-button').style.display = 'flex';
                     div.querySelector('.not-available').style.display = 'none';
                 } else {
                     div.querySelector('.not-available').style.display = 'flex';
-                    div.querySelector('.cart').style.display = 'none';
+                    div.querySelector('.cart-button').style.display = 'none';
                 }
             }
         });
