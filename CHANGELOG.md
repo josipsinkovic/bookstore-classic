@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.4.0 (2024-04-02)
+
+- added pages for book sections (new products, croatian literature...)
+- implemented search functionality
+- implemented user reviews functionality
+    - users can put a review on each book
+    - in order to leave a review, user must input e-mail (not shown to other users), first name, last name, grading and (optionally) description about the book
+- implemented shopping cart functionality
+    - users can add items and choose quantity of items that they want to add to cart
+    - on the cart page, users can edit their order (delete elements from the cart, change quantity...)
+    - the total order price is calculated and everything is ready for implementation of checkout process
+
 ## v0.3.0 (2024-03-01)
 
 - implemented structuring for the index.php file
