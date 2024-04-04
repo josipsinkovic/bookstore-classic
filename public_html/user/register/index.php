@@ -39,7 +39,10 @@ session_start();
             <span id="confPassErr"></span>
             <br>
             <span id="globalMessage"></span>
-            <input type="button" id="registerSubmit" value="Prijavi se">
+            <input type="button" id="registerSubmit" value="Registriraj se">
+            <small>
+                Imate račun? <a href="/user/login/" id="register-to-login">Prijavite se</a>
+            </small>
         </form>
     </main>
     <footer>

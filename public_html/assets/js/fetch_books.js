@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", async function() {
 
             // Checking if the HTML sections exist and execute fetching with appropriate SQL queries
             if (document.querySelector(".new-products")) {
-                promises.push(fetchData("SELECT book_id FROM Books ORDER BY publication_year DESC"));
+                promises.push(fetchData("SELECT book_id FROM Books ORDER BY publication_date DESC"));
                 classNames.push("new-products");
             }
             if (document.querySelector(".discounts")) {
@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 let url = window.location.href;
                 let splitURL = url.split('/');
                 let bookID = parseInt(splitURL[splitURL.length - 2]);
-                promises.push(fetchData(`SELECT book_id FROM Books WHERE NOT book_id = ${bookID} ORDER BY CASE WHEN author = (SELECT author FROM Books WHERE book_id = ${bookID}) THEN 1 WHEN original_language = (SELECT original_language FROM Books WHERE book_id = ${bookID}) THEN 2 WHEN publication_year = (SELECT publication_year FROM Books WHERE book_id = ${bookID}) THEN 3 WHEN binding = (SELECT binding FROM Books WHERE book_id = ${bookID}) THEN 4 END; `));
+                promises.push(fetchData(`SELECT book_id FROM Books WHERE NOT book_id = ${bookID} ORDER BY CASE WHEN author = (SELECT author FROM Books WHERE book_id = ${bookID}) THEN 1 WHEN original_language = (SELECT original_language FROM Books WHERE book_id = ${bookID}) THEN 2 WHEN publication_date = (SELECT publication_date FROM Books WHERE book_id = ${bookID}) THEN 3 WHEN binding = (SELECT binding FROM Books WHERE book_id = ${bookID}) THEN 4 END; `));
                 classNames.push("similar-products");
             }
             if (document.querySelector(".category")) {
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 }
 
                 if (document.querySelector(".category-new-product")) {
-                    promises.push(fetchData("SELECT book_id FROM Books ORDER BY publication_year DESC LIMIT " + perPage + " OFFSET " + ((pageValue - 1) * perPage)));
+                    promises.push(fetchData("SELECT book_id FROM Books ORDER BY publication_date DESC LIMIT " + perPage + " OFFSET " + ((pageValue - 1) * perPage)));
                     classNames.push("category-new-product");
                 }
                 if (document.querySelector(".category-world-literature")) {

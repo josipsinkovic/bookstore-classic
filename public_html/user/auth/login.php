@@ -22,6 +22,9 @@ if ($conn->connect_error) {
     die;
 }
 
+// Set character encoding to UTF-8 for proper handling of Unicode characters
+mysqli_set_charset($conn, "utf8");
+
 // Fetch data from database
 $sql = "SELECT email, passwordhash FROM Customers WHERE email = ?";
 $stmt = $conn->prepare($sql);

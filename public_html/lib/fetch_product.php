@@ -14,7 +14,7 @@ mysqli_set_charset($conn, "utf8");
 $bookID = $_POST['bookID'];
 
 // SQL query for getting book details
-$sql = "SELECT B.title, A.first_name, A.last_name, YEAR(B.publication_year) AS publication_year, B.price, D.discount, B.pages_number, B.original_language, B.binding, B.format_width, B.format_height, B.description, B.image_url, B.quantity FROM Books AS B LEFT JOIN Authors AS A ON B.author = A.author_id LEFT JOIN Discounts AS D ON B.book_id = D.book_id WHERE B.book_id = ?;";
+$sql = "SELECT B.title, A.first_name, A.last_name, YEAR(B.publication_date) AS publication_date, B.price, D.discount, B.pages_number, B.original_language, B.binding, B.format_width, B.format_height, B.description, B.image_url, B.quantity FROM Books AS B LEFT JOIN Authors AS A ON B.author = A.author_id LEFT JOIN Discounts AS D ON B.book_id = D.book_id WHERE B.book_id = ?;";
 
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("i", $bookID);
@@ -30,7 +30,7 @@ while ($row = $result->fetch_assoc()) {
         'title' => $row['title'],
         'first_name' => $row['first_name'],
         'last_name' => $row['last_name'],
-        'publication_year' => $row['publication_year'],
+        'publication_date' => $row['publication_date'],
         'price' => $row['price'],
         'discount' => $row['discount'],
         'pages_number' => $row['pages_number'],
@@ -47,4 +47,5 @@ while ($row = $result->fetch_assoc()) {
 $stmt->close();
 $conn->close();
 
+// Send data to the client
 echo json_encode($bookData);

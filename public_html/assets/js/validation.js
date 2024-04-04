@@ -94,7 +94,20 @@ document.addEventListener("DOMContentLoaded", function() {
                     } else if (response.status === "success") {
                         // Display success message and redirect to home page
                         document.getElementById("globalMessage").textContent = response.message;
-                        window.location.href = "/";
+
+                        // If we were redirected from the checkout page redirect back, else redirect to the home page
+                        let url = window.location.search;
+                        let params = new URLSearchParams(url);
+                        if (params.get('return') === 'checkout') {
+                            // Add delivery parameter if exists
+                            let newParams = new URLSearchParams();
+                            if (params.get('del')) {
+                                newParams.append('del', params.get('del'));
+                            }
+                            window.location.href = '/checkout/?' + newParams.toString();
+                        } else {
+                            window.location.href = "/";
+                        }
                     }
                 }
             }
@@ -152,15 +165,50 @@ document.addEventListener("DOMContentLoaded", function() {
                if (xhttp.readyState === 4 && xhttp.status === 200) {
                    let response = JSON.parse(xhttp.responseText);
                    if (response.status === "error") {
-                       // Display error message
-                       document.getElementById("globalMessage").textContent = response.message;
+                        // Display error message
+                        document.getElementById("globalMessage").textContent = response.message;
                    } else if (response.status === "success") {
-                       // Display success message and redirect to home page
-                       document.getElementById("globalMessage").textContent = response.message;
-                       window.location.href = "/";
+                        // Display success message and redirect to home page
+                        document.getElementById("globalMessage").textContent = response.message;
+                       
+                        // If we were redirected from the checkout page redirect back, else redirect to the home page
+                        let url = window.location.search;
+                        let params = new URLSearchParams(url);
+                        if (params.get('return') === 'checkout') {
+                            // Add delivery parameter if exists
+                            let newParams = new URLSearchParams();
+                            if (params.get('del')) {
+                                newParams.append('del', params.get('del'));
+                            }
+                            window.location.href = '/checkout/?' + newParams.toString();
+                        } else {
+                            window.location.href = "/";
+                        }
                    }
                }
            }
+        }
+    }
+
+    // Function for redirecting from login page to register page and vice versa
+    function redirect() {
+        // Extract the URL parameters from the current window location
+        let url = window.location.search;
+        let params = new URLSearchParams(url);
+        let wantedURL = '';
+
+        // Append appropriate wanted URL based on the current page
+        if (document.querySelector('#login-to-register')) {
+            wantedURL = document.querySelector('#login-to-register').href;
+        } else if (document.querySelector('#register-to-login')) {
+            wantedURL = document.querySelector('#register-to-login').href;
+        }
+
+        // If parameters exist in the current URL, add them to wanted URL
+        if (params.toString()) {
+            window.location.href = wantedURL + '?' + params.toString();
+        } else {
+            window.location.href = wantedURL;
         }
     }
 
@@ -168,7 +216,15 @@ document.addEventListener("DOMContentLoaded", function() {
     // Add event listener with the appropriate function to the existing submit button
     if (document.getElementById("registerSubmit")) {
         document.getElementById("registerSubmit").addEventListener("click", registerValidate);
+        document.getElementById("register-to-login").addEventListener("click", function(event) {
+            event.preventDefault();
+            redirect();
+        });
     } else if (document.getElementById("loginSubmit")) {
         document.getElementById("loginSubmit").addEventListener("click", loginValidate);
+        document.getElementById("login-to-register").addEventListener("click", function(event) {
+            event.preventDefault();
+            redirect();
+        });
     }
 });

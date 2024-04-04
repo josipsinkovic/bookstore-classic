@@ -28,6 +28,9 @@ session_start();
             <br>
             <span id="globalMessage"></span>
             <input type="button" id="loginSubmit" value="Prijavi se">
+            <small>
+                Nemate račun? <a href="/user/register/" id="login-to-register">Registrirajte se</a>
+            </small>
         </form>
     </main>
     <footer>
