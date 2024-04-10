@@ -134,7 +134,7 @@ session_start();
                             <div class="order-popup">
                                 Jeste li sigurni da želite naručiti?
                                 <div class="">
-                                    <button class="popup-cancel-order">Otkaži</button>
+                                    <button class="popup-cancel-order">Odustani</button>
                                     <button class="popup-resume-order">U redu</button>
                                 </div>
                             </div>

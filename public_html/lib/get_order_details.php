@@ -10,11 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     die;
 }
 
-if(isset($_POST['userID'])) {
-    $userID = $_POST['userID'];
-} else {
-    $userID = $_SESSION['userID'];
-}
+$orderID = Utils::sanitizeFormInput($_POST['orderID']);
 
 // Create connection and handle connection error
 $conn = new mysqli(SERVERNAME, USERNAME, PASSWORD, DATABASE);
@@ -28,11 +24,25 @@ if ($conn->connect_error) {
 // Set character encoding to UTF-8 for proper handling of Unicode characters
 mysqli_set_charset($conn, "utf8");
 
-// Get user data using function in 'utils' file
-$userData = Utils::returnUserData($userID, $conn);
+$sql = "SELECT book_id, quantity, price, totalPrice FROM OrderDetails WHERE order_id = ?";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $orderID);
+$stmt->execute();
+$result = $stmt->get_result();
 
+$orderData = array();
 
+// Put order details in $orderData array
+while ($row = $result->fetch_assoc()) {
+    $orderData[] = array(
+        'book_id' => $row['book_id'],
+        'quantity' => $row['quantity'],
+        'price' => $row['price'],
+        'total_price' => $row['totalPrice']
+    );
+}
+
+$stmt->close();
 $conn->close();
 
-// Send data to the client
-echo json_encode($userData);
+echo json_encode($orderData);

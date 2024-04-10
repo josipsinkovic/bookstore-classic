@@ -26,6 +26,7 @@ window.onload = onLoad;
 document.addEventListener('DOMContentLoaded', function() {
     let userID;
     let userNoData = false;
+    let cartPrice;
 
     // Function for displaying products from the cart (on page loading)
     async function displayCartInformation() {
@@ -56,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         // Initialize variables for HTML structure and cart price
         let HTMLtable = '<table><tr class="table-header"><th>Naziv proizvoda</th><th>Količina</th><th>Cijena</th><th>Ukupna cijena</th></tr>';
-        let cartPrice = 0;
+        cartPrice = 0;
 
         // Iterate over each element in the cart
         cart.forEach(function(element) {
@@ -349,6 +350,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 params.append('delivery', delivery);
                 params.append('payment', paymentMethod);
 
+                if (parseFloat(delivery)) {
+                    cartPrice += parseFloat(delivery);
+                }
+                params.append('totalPrice', cartPrice);
+
                 // Send order details to the server
                 let response = await fetch('/lib/insert_order.php', {
                     method: 'POST',
@@ -477,6 +483,9 @@ document.addEventListener('DOMContentLoaded', function() {
                             throw new Error("HTTP error " + response.status);
                         }
                     }
+
+                    // Redirect user to the details page of the current order
+                    window.location.href = `/user/account/order/?order_id=${orderID}`;
                 } else {
                     // If order fails, allow user to have control of the page
                     document.querySelector('.order-popup-overlay').style.display = 'none';
@@ -555,9 +564,6 @@ document.addEventListener('DOMContentLoaded', function() {
         formatCardExpiryInput(this);
     });
 
-    // Execute these 2 functions on page loading
-    setTimeout(() => {
-        displayCartInformation();
-        displayPersonalInformation();
-    }, 1);
+    displayCartInformation();
+    displayPersonalInformation();
 });

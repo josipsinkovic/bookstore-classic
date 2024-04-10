@@ -66,6 +66,7 @@ CREATE TABLE Orders (
     phone_number        varchar(20) not null,
     delivery            varchar(5) not null,
     payment_method      varchar(15) not null,
+    total_price         decimal(10, 2) not null,
     status              varchar(10) not null,
     PRIMARY KEY(order_id),
     FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)

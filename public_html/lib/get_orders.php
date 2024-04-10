@@ -28,11 +28,25 @@ if ($conn->connect_error) {
 // Set character encoding to UTF-8 for proper handling of Unicode characters
 mysqli_set_charset($conn, "utf8");
 
-// Get user data using function in 'utils' file
-$userData = Utils::returnUserData($userID, $conn);
+$sql = "SELECT order_id, order_date, total_price, status FROM Orders WHERE customer_id = ? ORDER BY order_date DESC, order_id DESC; ";
+$stmt = $conn->prepare($sql);
+$stmt->bind_param("i", $userID);
+$stmt->execute();
+$result = $stmt->get_result();
 
+$orderData = array();
 
+// Put order details in $orderData array
+while ($row = $result->fetch_assoc()) {
+    $orderData[] = array(
+        'order_id' => $row['order_id'],
+        'order_date' => $row['order_date'],
+        'total_price' => $row['total_price'],
+        'status' => $row['status'],
+    );
+}
+
+$stmt->close();
 $conn->close();
 
-// Send data to the client
-echo json_encode($userData);
+echo json_encode($orderData);

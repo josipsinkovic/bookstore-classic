@@ -17,6 +17,7 @@ $postalCode = Utils::sanitizeFormInput($_POST['postalCode']);
 $phone = Utils::sanitizeFormInput($_POST['phone']);
 $delivery = Utils::sanitizeFormInput($_POST['delivery']);
 $payment = Utils::sanitizeFormInput($_POST['payment']);
+$totalPrice = Utils::sanitizeFormInput($_POST['totalPrice']);
 $status = 'pending';
 
 // Create connection and handle connection error
@@ -32,9 +33,9 @@ if ($conn->connect_error) {
 mysqli_set_charset($conn, "utf8");
 
 // SQL query for inserting order in database
-$sql = "INSERT INTO Orders (customer_id, address, city, postal_code, phone_number, delivery, payment_method, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+$sql = "INSERT INTO Orders (customer_id, address, city, postal_code, phone_number, delivery, payment_method, total_price, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $stmt = $conn->prepare($sql);
-$stmt->bind_param("ississss", $userID, $address, $city, $postalCode, $phone, $delivery, $payment, $status);
+$stmt->bind_param("ississsds", $userID, $address, $city, $postalCode, $phone, $delivery, $payment, $totalPrice, $status);
 
 // If query executes successfully return the order ID to the client, otherwise send error message
 if ($stmt->execute()) {

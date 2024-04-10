@@ -27,6 +27,9 @@
                 <div class="cart-button">
                     <p>Dodaj u košaricu</p>
                 </div>
+                <div class="cart-button-unavailable">
+                    <p>Nije dostupno</p>
+                </div>
             </div>
             <div class="product-attributes">
                 <div class="product-publication">

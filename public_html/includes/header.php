@@ -30,7 +30,7 @@
                         echo '<a href="/user/register/">Registracija</a>';
                     }
                     else {
-                        echo '<a href="/user/login/">Korisnički račun</a>';
+                        echo '<a href="/user/account/">Korisnički račun</a>';
                         echo '<a href="/user/auth/logout.php">Odjavite se</a>';
                     }
                 ?>
