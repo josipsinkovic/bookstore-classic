@@ -1,5 +1,16 @@
 # Changelog
 
+## v0.5.0 (2024-04-11)
+
+- implemented checkout process
+    - users must input their personal information to continue with checkout
+    - users can choose from three methods of payment: on-delivery, card and virman payment
+    - upon successful checkout, users are redirected to a page with order details
+- implemented user account management features
+    - users can view and modify information about their account
+    - users can change their password
+    - users can see list of all their orders, and they can click on every order to access order details
+
 ## v0.4.0 (2024-04-02)
 
 - added pages for book sections (new products, croatian literature...)

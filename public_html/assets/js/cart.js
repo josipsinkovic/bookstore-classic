@@ -135,7 +135,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             // Create HTML content for checkout part
             HTMLcheckout += '<tr><th>Košarica</th><td class="cart-checkout-price">' + cartPrice.toFixed(2) + '€</td></tr><tr><th>Dostava</th><td><input type="radio" id="cart-checkout-delivery" name="cart-checkout" checked><label for="cart-checkout-delivery">Dostavna služba: ' + delivery + '€</label><br><input type="radio" id="cart-checkout-local" name="cart-checkout"><label for="cart-checkout-local">Lokalno preuzimanje: 0€</label></td></tr>';
             HTMLcheckout += '<tr><th>Ukupno</th><td class="cart-checkout-total">' + (cartPrice + delivery).toFixed(2) + '€</td></tr>';
-            HTMLcheckout += '</table></div><div class="checkout-button"><button class="button-checkout">Plaćanje</button></div>';
+            HTMLcheckout += '</table></div><div class="checkout-button"><a href="/checkout/"><button class="button-checkout">Plaćanje</button></a></div>';
             
             // Append HTML content to the appropriate elements
             document.querySelector('.cart-table').innerHTML = HTMLtable;
@@ -159,6 +159,11 @@ document.addEventListener("DOMContentLoaded", async function() {
             // Add event listeners for radio buttons to update checkout information
             document.querySelector('#cart-checkout-delivery').addEventListener('change', updateCheckoutInformation);
             document.querySelector('#cart-checkout-local').addEventListener('change', updateCheckoutInformation);
+
+            document.querySelector('.checkout-button a').addEventListener('click', function(event) {
+                event.preventDefault();
+                checkout();
+            });
         }
     }
 
@@ -174,6 +179,30 @@ document.addEventListener("DOMContentLoaded", async function() {
         } else if (document.querySelector('#cart-checkout-local').checked) {
             // If local pickup is selected, update the total checkout price to be equal to the cart price
             document.querySelector('.cart-checkout-total').textContent = cartPrice.toFixed(2) + '€';
+        }
+    }
+
+    // Function is called on clicking the button for checkout
+    // Function checks if user is logged in, and it redirects to appropriate page with URL Search parameters
+    async function checkout() {
+        let params = new URLSearchParams();
+
+        // Check if delivery option is selected and set the appropriate value for 'del' parameter
+        if (document.querySelector('#cart-checkout-delivery').checked) {
+            params.append('del', 'true');
+        } else if (document.querySelector('#cart-checkout-local').checked) {
+            params.append('del', 'false');
+        }
+
+        const response = await fetch("/lib/check_session.php");
+        const exists = await response.text();
+        if (exists === 'false') {
+            // If user isn't logged in, redirect to login page with 'del' and 0return' parameter
+            params.append('return', 'checkout');
+            window.location.href = '/user/login/?' + params.toString();
+        } else {
+            // If user is logged in, redirect to checkout page with 'del' parameter
+            window.location.href = '/checkout/?' + params.toString();
         }
     }
 
@@ -258,7 +287,7 @@ document.addEventListener("DOMContentLoaded", async function() {
         // Loop through each product quantity input field
         for (let i = 0; i < quantities.length; i++) {
             // Check if there are enough items in stock for the updated quantity
-            if (bookData[i].book_quantity < cart[i].quantity + parseInt(quantities[i].value)) {
+            if (bookData[i].book_quantity < parseInt(quantities[i].value)) {
                 // If there are not enough items in stock, display error message and reset the input field value to its original quantity
                 quantities[i].setAttribute('title', 'Nemamo toliko proizvoda u skladištu!');
                 quantities[i].focus();
@@ -323,6 +352,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                         document.querySelector('.product-quantity').setAttribute('title', 'Nemamo toliko proizvoda u skladištu!');
                         document.querySelector('.product-quantity').focus();
                     }
+                    found = true;
                     message = 'fail'; // Set message to 'fail'
                 } else {
                     // If the quantity does not exceed the available stock, update the quantity and set found to true

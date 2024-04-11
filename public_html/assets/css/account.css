@@ -1,0 +1,117 @@
+@import "var.css";
+
+main .container {
+    display: flex;
+    flex-direction: column;
+}
+
+.account-container {
+    display: flex;
+}
+
+.my-information, .my-address, .my-orders {
+    display: none;
+}
+
+.active {
+    display: block;
+}
+
+.highlight {
+    background: #00f;
+}
+
+.orders-table table {
+    border-collapse: collapse;
+}
+
+.orders-table table th, .orders-table table td {
+    border-block: 1px solid #000;
+    text-align: center;
+    padding: 4px;
+}
+
+.order-container {
+    display: flex;
+    flex-direction: column;
+    width: 1000px;
+}
+
+.order-container > * {
+    margin: 10px 0;
+    padding: 10px 0;
+}
+
+.order-status {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cancel-order {
+    padding: 10px 6px;
+    background: rgb(255, 0, 0);
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.order-details {
+    border-bottom: 1px solid #000;
+}
+
+.order-details-table table {
+    border-collapse: collapse;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.order-details-table table th, .order-details-table table td {
+    border-block: 1px solid #000;
+    text-align: center;
+    padding: 4px;
+}
+
+.order-details-summary {
+    display: flex;
+    justify-content: right;
+}
+
+.order-details-summary > table tr td:nth-child(1), .order-details-summary > table tr th:nth-child(1){
+    text-align: left;
+    padding-right: 5px;
+}
+
+.order-details-summary > table tr td:nth-child(2), .order-details-summary > table tr th:nth-child(2){
+    text-align: right;
+    padding-left: 5px;
+}
+
+.order-status-cancel {
+    display: none;
+}
+
+.cancel-popup-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+    z-index: 100; /* Ensure overlay is on top of other content */
+}
+
+.cancel-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    background: #000;
+    color: #fff;
+    z-index: 101;
+}
+

@@ -44,11 +44,16 @@ document.addEventListener("DOMContentLoaded", async function() {
         main.querySelector('.price-reduction').textContent = '-' + discount + '%';
     }
 
-    main.querySelector('#product-year').textContent = bookData[0].publication_year;
+    main.querySelector('#product-year').textContent = bookData[0].publication_date;
     main.querySelector('#product-pages').textContent = bookData[0].pages_number;
     main.querySelector('#product-language').textContent = bookData[0].original_language;
     main.querySelector('#product-binding').textContent = bookData[0].binding;
     main.querySelector('#product-width').textContent = bookData[0].format_width + " mm";
     main.querySelector('#product-height').textContent = bookData[0].format_height + " mm";
     main.querySelector('.product-description').textContent = bookData[0].description;
+
+    if (bookData[0].quantity == 0) {
+        document.querySelector('.cart-button').style.display = 'none';
+        document.querySelector('.cart-button-unavailable').style.display = 'block';
+    }
 });

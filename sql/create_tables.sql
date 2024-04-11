@@ -51,7 +51,7 @@ CREATE TABLE Customers (
     passwordhash        char(60) not null,
     address             nvarchar(255),
     city                nvarchar(50),
-    postal_code         smallint,
+    postal_code         int,
     phone_number        varchar(20),
     PRIMARY KEY(customer_id)
 );
@@ -59,7 +59,15 @@ CREATE TABLE Customers (
 CREATE TABLE Orders (
     order_id            int unsigned not null auto_increment,
     customer_id         int unsigned not null,
-    order_date          date not null,
+    order_date          date default current_date(),
+    address             nvarchar(255) not null,
+    city                nvarchar(50) not null,
+    postal_code         int not null,
+    phone_number        varchar(20) not null,
+    delivery            varchar(5) not null,
+    payment_method      varchar(15) not null,
+    total_price         decimal(10, 2) not null,
+    status              varchar(10) not null,
     PRIMARY KEY(order_id),
     FOREIGN KEY (customer_id) REFERENCES Customers(customer_id)
 );
@@ -69,6 +77,7 @@ CREATE TABLE OrderDetails (
     book_id             int unsigned not null,
     quantity            tinyint unsigned not null,
     price               decimal(10, 2) not null,
+    totalPrice          decimal(10, 2) not null,
     PRIMARY KEY(order_id, book_id),
     FOREIGN KEY (order_id) REFERENCES Orders(order_id),
     FOREIGN KEY (book_id) REFERENCES Books(book_id)
