@@ -9,8 +9,10 @@
     </div>
     <div class="product-details">
         <div class="image">
-            <img src="" alt="">
-            <p class="price-reduction"></p> 
+            <div class="image-container">
+                <img src="" alt="">
+                <p class="price-reduction"></p> 
+            </div>
         </div>
         <div class="product-info">
             <p class="product-author"></p>
@@ -101,7 +103,27 @@
     </div>
     <div class="similar-products">
         <h2>Povezani proizvodi</h2>
-        <div class="similar-products-container">
+        <div class="similar-products-container px1200 carousel">
+            <div class="book">
+                <?php require("book.php"); ?>
+            </div>
+            <div class="book">
+                <?php require("book.php"); ?>
+            </div>
+            <div class="book">
+                <?php require("book.php"); ?>
+            </div>
+            <div class="book">
+                <?php require("book.php"); ?>
+            </div>
+            <div class="book">
+                <?php require("book.php"); ?>
+            </div>
+            <div class="book">
+                <?php require("book.php"); ?>
+            </div>
+        </div>
+        <div class="similar-products-container px1000 carousel">
             <div class="book">
                 <?php require("book.php"); ?>
             </div>

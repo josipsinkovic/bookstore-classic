@@ -1,5 +1,11 @@
 <div class="container">
-    <div class="books">
+    <div class="books carousel">
+        <div class="book">
+            <?php require("book.php"); ?>
+        </div>
+        <div class="book">
+            <?php require("book.php"); ?>
+        </div>
         <div class="book">
             <?php require("book.php"); ?>
         </div>

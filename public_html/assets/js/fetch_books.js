@@ -47,7 +47,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 let url = window.location.href;
                 let splitURL = url.split('/');
                 let bookID = parseInt(splitURL[splitURL.length - 2]);
-                promises.push(fetchData(`SELECT book_id FROM Books WHERE NOT book_id = ${bookID} ORDER BY CASE WHEN author = (SELECT author FROM Books WHERE book_id = ${bookID}) THEN 1 WHEN original_language = (SELECT original_language FROM Books WHERE book_id = ${bookID}) THEN 2 WHEN publication_date = (SELECT publication_date FROM Books WHERE book_id = ${bookID}) THEN 3 WHEN binding = (SELECT binding FROM Books WHERE book_id = ${bookID}) THEN 4 END; `));
+                promises.push(fetchData(`SELECT book_id FROM Books WHERE NOT book_id = ${bookID} ORDER BY CASE WHEN author = (SELECT author FROM Books WHERE book_id = ${bookID}) THEN 0 ELSE 1 END, CASE WHEN original_language = (SELECT original_language FROM Books WHERE book_id = ${bookID}) THEN 0 ELSE 1 END, CASE WHEN publication_date = (SELECT publication_date FROM Books WHERE book_id = ${bookID}) THEN 0 ELSE 1 END, CASE WHEN binding = (SELECT binding FROM Books WHERE book_id = ${bookID}) THEN 0 ELSE 1 END, publication_date DESC, title; `));
                 classNames.push("similar-products");
             }
             if (document.querySelector(".category")) {
@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 let perPage = params.get('perPage');
                 if (pageValue === null) pageValue = 1;
                 else pageValue = parseInt(pageValue);
-                if (perPage === null) perPage = 20;
+                if (perPage === null) perPage = 18;
 
                 // Choose default selected item for the number of products per page
                 let options = document.querySelectorAll("option");
@@ -85,13 +85,30 @@ document.addEventListener("DOMContentLoaded", async function() {
                     promises.push(fetchData(`SELECT book_id FROM Books WHERE original_language = "Hrvatski" LIMIT ` + perPage + ` OFFSET ` + ((pageValue - 1) * perPage)));
                     classNames.push("category-croatian-literature");
                 }
+                if (document.querySelector(".category-drama")) {
+                    promises.push(fetchData("SELECT book_id FROM Books WHERE book_id IN (6, 11, 12, 15, 16, 17, 18, 19, 23, 31) LIMIT " + perPage + " OFFSET " + ((pageValue - 1) * perPage)));
+                    classNames.push("category-drama");
+                }
+                if (document.querySelector(".category-poetry")) {
+                    promises.push(fetchData("SELECT book_id FROM Books WHERE book_id IN (2, 3, 4, 9, 10, 13, 21, 22, 29) LIMIT " + perPage + " OFFSET " + ((pageValue - 1) * perPage)));
+                    classNames.push("category-poetry");
+                }
+                if (document.querySelector(".category-fiction")) {
+                    promises.push(fetchData("SELECT book_id FROM Books WHERE book_id IN (32, 35) LIMIT " + perPage + " OFFSET " + ((pageValue - 1) * perPage)));
+                    classNames.push("category-fiction");
+                }
+                if (document.querySelector(".category-novels")) {
+                    promises.push(fetchData("SELECT book_id FROM Books WHERE book_id IN (14, 20, 24, 25, 26, 27, 28, 30, 33) LIMIT " + perPage + " OFFSET " + ((pageValue - 1) * perPage)));
+                    classNames.push("category-novels");
+                }
                 if (document.querySelector(".category-discounts")) {
                     promises.push(fetchData(`SELECT Books.book_id FROM Books INNER JOIN Discounts ON Books.book_id = Discounts.book_id ORDER BY Discounts.discount DESC LIMIT ` + perPage + ` OFFSET ` + ((pageValue - 1) * perPage)));
                     classNames.push("category-discounts");
                 }
                 if (document.querySelector(".category-search-products")) {
                     let searchQuery = params.get('search_q');
-                    document.querySelector(".search-products-header > h1").textContent = searchQuery;
+                    document.querySelector(".search-products-header > h1").textContent = 'Pretraga: ' + searchQuery;
+                    document.title = `Pretraga: "${searchQuery}" | Classic`;
                     promises.push(fetchData(`SELECT b.book_id FROM Books AS b LEFT JOIN Authors AS a ON b.author = a.author_id WHERE (b.title LIKE CONCAT('%', '` + searchQuery + `', '%')) OR (a.last_name LIKE CONCAT('%', '` + searchQuery + `', '%')) OR (a.first_name LIKE CONCAT('%', '` + searchQuery + `', '%')) LIMIT ` + perPage + ` OFFSET ` + ((pageValue - 1) * perPage)));
                     classNames.push("category-search-products");
                 }
@@ -131,10 +148,13 @@ document.addEventListener("DOMContentLoaded", async function() {
             // After all promises are resolved, assign book IDs to corresponding elements
             Promise.all(promises).then(results => {
                 for (let i = 0; i < results.length; i++) {
-                    let books = document.querySelectorAll("." + classNames[i] + " .book");
+                    let carousel = document.querySelectorAll("." + classNames[i] + " .carousel");
                     let bookIds = results[i];
-                    for (let j = 0; j < books.length; j++) {
-                        books[j].id = bookIds[j];
+                    for (let j = 0; j < carousel.length; j++) {
+                        let books = carousel[j].querySelectorAll(".book");
+                        for (let k = 0; k < books.length; k++) {
+                            books[k].id = bookIds[k];
+                        }
                     }
                     
                     // Only for categories, don't display the right arrow if there are less products on the page than expected 
@@ -142,10 +162,15 @@ document.addEventListener("DOMContentLoaded", async function() {
                         let url = window.location.search;
                         let params = new URLSearchParams(url);
                         let perPage = params.get('perPage');
-                        if (perPage === null) perPage = 20;
+                        if (perPage === null) perPage = 18;
 
                         if (bookIds.length < perPage) {
                             document.querySelector(".sljedeca-stranica").style.display = "none";
+                        }
+
+                        if (bookIds.length === 0) {
+                            document.querySelector(".container .books").style.display = 'flex';
+                            document.querySelector(".container .books").innerHTML = '<h2>Traženi proizvodi ne postoje.</h2>';
                         }
                     }
                 }

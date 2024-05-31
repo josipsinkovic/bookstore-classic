@@ -1,5 +1,7 @@
 <a href=""><img src="" alt=""></a>
-<p class="book-author"></p>
+<div>
+    <p class="book-author"></p>
+</div>
 <a href="">
     <h4 class="book-name"></h4>
 </a>

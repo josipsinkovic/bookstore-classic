@@ -2,14 +2,8 @@ document.addEventListener("DOMContentLoaded", async function() {
 
     // Function to update the header cart icon with the total number of products
     function updateCartHeader() {
-        let cart = [];
-
         // Check if 'cart' key exists in localStorage, if it exists parse it as an array to the 'cart' variable
-        if (localStorage.getItem('cart') !== null) {
-            cart = JSON.parse(localStorage.getItem('cart'));
-        } else {
-            cart = [];
-        }
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         // Loop through each element in cart and add up the quantities
         let productNumber = 0;
@@ -75,7 +69,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             
             // Initialize variables that contain HTML structure for the cart information and checkout information (HTML will be generated dynamically using JavaScript)
             let HTMLtable = '<table><tr class="table-header"><th>Naziv proizvoda</th><th>Količina</th><th>Cijena</th><th>Ukupna cijena</th><th></th></tr>';
-            let HTMLcheckout = '<div class="checkout-header">Sadržaj</div><div class="checkout-data"><table>';
+            let HTMLcheckout = '<div class="checkout-header">Iznos košarice</div><div class="checkout-data"><table>';
 
             // Variable for total price (needed for checkout)
             let cartPrice = 0;
@@ -127,7 +121,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             });
             
             // Add HTML content for buttons that return to the home page, update the cart and remove all items from the cart
-            HTMLtable += '</table><div class="cart-buttons"><div class="buttons-left"><a href="/"><button class="back-to-webshop">Povratak na webshop</button></a></div><div class="buttons-right"><button class="cart-delete-all">Očisti košaricu</button><button class="cart-refresh">Ažuriraj košaricu</button></div></div>';
+            HTMLtable += '</table><div class="cart-buttons"><div class="buttons-left"><a href="/"><button class="back-to-webshop"><i class="fa-solid fa-chevron-left"></i>Povratak na webshop</button></a></div><div class="buttons-right"><button class="cart-delete-all">Očisti košaricu</button><button class="cart-refresh">Ažuriraj košaricu</button></div></div>';
 
             // Calculate the price for delivery (if the total price of products exceeds 50€, delivery is free)
             let delivery = (cartPrice > 50) ? 0.00 : 5.00;
@@ -135,7 +129,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             // Create HTML content for checkout part
             HTMLcheckout += '<tr><th>Košarica</th><td class="cart-checkout-price">' + cartPrice.toFixed(2) + '€</td></tr><tr><th>Dostava</th><td><input type="radio" id="cart-checkout-delivery" name="cart-checkout" checked><label for="cart-checkout-delivery">Dostavna služba: ' + delivery + '€</label><br><input type="radio" id="cart-checkout-local" name="cart-checkout"><label for="cart-checkout-local">Lokalno preuzimanje: 0€</label></td></tr>';
             HTMLcheckout += '<tr><th>Ukupno</th><td class="cart-checkout-total">' + (cartPrice + delivery).toFixed(2) + '€</td></tr>';
-            HTMLcheckout += '</table></div><div class="checkout-button"><a href="/checkout/"><button class="button-checkout">Plaćanje</button></a></div>';
+            HTMLcheckout += '</table></div><div class="checkout-button"><a href="/checkout/"><button class="button-checkout">Plaćanje<i class="fa-solid fa-chevron-right"></i></button></a></div>';
             
             // Append HTML content to the appropriate elements
             document.querySelector('.cart-table').innerHTML = HTMLtable;
@@ -293,6 +287,8 @@ document.addEventListener("DOMContentLoaded", async function() {
                 quantities[i].focus();
                 success = false;
                 quantities[i].value = cart[i].quantity;
+            } else if (parseInt(quantities[i].value) === 0) {
+                quantities[i].value = cart[i].quantity;
             } else {
                 // If there are enough items in stock, update the quantity in the cart array
                 cart[i].quantity = parseInt(quantities[i].value);
@@ -308,16 +304,11 @@ document.addEventListener("DOMContentLoaded", async function() {
     }
     
     // Function for adding a book to the cart
-    async function addToCart(bookId, quantity) {
+    async function addToCart(bookId, quantity, from) {
         let message; // Variable to store the message indicating success or failure
-        let cart = [];
 
         // Check if 'cart' key exists in localStorage, if it exists parse it as an array to the 'cart' variable
-        if (localStorage.getItem('cart') !== null) {
-            cart = JSON.parse(localStorage.getItem('cart'));
-        } else {
-            cart = [];
-        }
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
         // Prepare the ID of the current book to be sent to the server
         let params = "ids=" + encodeURIComponent(bookId);
@@ -348,7 +339,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                 // Check if the quantity exceeds the available stock
                 if (bookData[0].book_quantity < element.quantity + quantity) {
                     // If there are not enough items in stock, display error message
-                    if (document.querySelector('.product-quantity')) {
+                    if (from === 'product') {
                         document.querySelector('.product-quantity').setAttribute('title', 'Nemamo toliko proizvoda u skladištu!');
                         document.querySelector('.product-quantity').focus();
                     }
@@ -356,7 +347,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     message = 'fail'; // Set message to 'fail'
                 } else {
                     // If the quantity does not exceed the available stock, update the quantity and set found to true
-                    if (document.querySelector('.product-quantity')) {
+                    if (from === 'product') {
                         document.querySelector('.product-quantity').removeAttribute('title');
                     }
                     element.quantity += quantity;
@@ -410,7 +401,7 @@ document.addEventListener("DOMContentLoaded", async function() {
             // Check if the button has not been already clicked (only for elements with class 'book')
             if (!button.classList.contains('added-to-cart')) {
                 // Check if the button is on the product page
-                if (document.querySelector('.product-quantity')) {
+                if (button.previousElementSibling.classList.contains('quantity')) {
                     // Extract book ID from URL and quantity input field
                     let url = window.location.href;
                     let splitURL = url.split('/');
@@ -426,7 +417,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                     let bookName = document.querySelector('.product-name').textContent;
 
                     // Add book to cart and await response message ('success' or 'fail')
-                    let message = await addToCart(bookId, quantity);
+                    let message = await addToCart(bookId, quantity, 'product');
 
                     // Display success message if addition to cart is successful
                     if (message === 'success') {
@@ -451,7 +442,7 @@ document.addEventListener("DOMContentLoaded", async function() {
                         let quantity = 1;
     
                         // Add book to cart and await response message ('success' or 'fail')
-                        let message = await addToCart(bookId, quantity);
+                        let message = await addToCart(bookId, quantity, 'book');
 
                         // Update button appearance if addition to cart is successful
                         if (message === 'success') {

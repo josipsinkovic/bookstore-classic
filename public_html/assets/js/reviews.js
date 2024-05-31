@@ -57,26 +57,16 @@ document.addEventListener("DOMContentLoaded", function() {
         let globalMessage = '';
 
 
-        // Validate e-mail input
+        // Validate e-mail input, first and last name input
         if (email === "") {
             globalMessage = "Greška: Niste unijeli e-mail";
         } else if (!/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email)) {
             globalMessage = "Greška: Unesite ispravnu e-mail adresu (npr. johndoe@domain.com)";
-        } else {
-            globalMessage = "";
-        }
-
-        // Validate first name input
-        if (firstName === "") {
+        } else if (firstName === "") {
             globalMessage = "Greška: Niste unijeli ime";
         } else if (!/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(firstName)) {
             globalMessage = "Greška: Neispravan format imena";
-        } else {
-            globalMessage = "";
-        }
-
-        // Validate last name input
-        if (lastName === "") {
+        } else if (lastName === "") {
             globalMessage = "Greška: Niste unijeli prezime";
         } else if (!/^[^0-9_!¡?÷?¿/\\+=@#$%ˆ&*(){}|~<>;:[\]]{2,}$/.test(lastName)) {
             globalMessage = "Greška: Neispravan format prezimena";
@@ -92,6 +82,8 @@ document.addEventListener("DOMContentLoaded", function() {
         // If the inputs contained errors display them, otherwise proceed sending the data to the server 
         if (globalMessage !== '') {
             document.querySelector('.globalMessage').textContent = globalMessage;
+            document.querySelector('.globalMessage').classList.add('red');
+            document.querySelector('.globalMessage').classList.remove('green');
         } else {
             // Retrieve book ID from page URL
             let url = window.location.href;
@@ -134,6 +126,8 @@ document.addEventListener("DOMContentLoaded", function() {
             }
 
             // Display message
+            document.querySelector('.globalMessage').classList.add('green');
+            document.querySelector('.globalMessage').classList.remove('red');
             document.querySelector('.globalMessage').textContent = globalMessage.message;
         }
     }
@@ -167,6 +161,10 @@ document.addEventListener("DOMContentLoaded", function() {
         // Get HTML content and display it on the page
         let reviewData = await response.text();
         document.querySelector('.reviews-list').innerHTML = reviewData;
+
+        if (document.querySelector('#show-more-reviews')) {
+            document.querySelector('#show-more-reviews').addEventListener('click', displayReviews);
+        }
     }
 
     // Adding event listeners for button clicks, star ratings, and review submission
@@ -185,12 +183,4 @@ document.addEventListener("DOMContentLoaded", function() {
     window.onload = function() {
         displayReviews();
     }
-
-    // Set timeout for button because button is created via php script
-    function set() {
-        if (document.querySelector('#show-more-reviews')) {
-            document.querySelector('#show-more-reviews').addEventListener('click', displayReviews);
-        }
-    }
-    setTimeout(set, 3000);
 });

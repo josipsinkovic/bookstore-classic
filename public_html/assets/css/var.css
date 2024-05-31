@@ -1,4 +1,15 @@
 :root {
     --bg-color: #f1f1f1;
-    --fg-color: #1d1d1d;
+    --fg-color: #004a96;
+    --fg-color-dark: #00277d;
+    --black: #1d1d1d;
+    --grey: #959595;
+    --light-grey: #d0d0d0;
+    --white: #fff;
+    --light-red: #e02b27aa;
+    --red: #dc3545;
+    --dark-red: #80000d;
+    --green: #28a745;
+    --dark-green: #03651a;
+    --orange: #d7680d;
 }

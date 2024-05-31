@@ -80,7 +80,7 @@ for ($i = 0; $i < $displayReview; $i++) {
 }
 
 // If there are more reviews than currently shown, display the button for showing more reviews
-if (count($reviews) >= $displayReview) {
+if (count($reviews) > $displayReview) {
     echo '<button id="show-more-reviews">Prikaži više</button>';
 }
 

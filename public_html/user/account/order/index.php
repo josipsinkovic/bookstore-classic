@@ -5,14 +5,11 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/assets/css/base.css">
+    <?php include('../../../includes/head.php'); ?>
+    <title>Narudžba | Classic</title>
     <link rel="stylesheet" href="/assets/css/account.css">
     <script src="/assets/js/cart.js"></script>
     <script src="/assets/js/account.js"></script>
-    <script src="https://kit.fontawesome.com/8bbbed924d.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>    
@@ -21,7 +18,7 @@ session_start();
     <main>
         <div class="container">
             <div class="order-container">
-                <h2 class="order-header"></h2>
+                <h1 class="order-header"></h1>
                 <div class="order-status-date">
                     <div class="order-status">
                         <div class="order-status-show"></div>
@@ -43,13 +40,13 @@ session_start();
                     <div class="order-date"></div>
                 </div>
                 <div class="order-details">
-                    <h4>Naručene stavke</h4>
+                    <h3>Naručene stavke</h3>
                     <div class="order-details-table"></div>
                     <div class="order-details-summary"></div>
                 </div>
                 <div class="order-information">
                     <div class="order-information-details">
-                        <h4>Podaci o narudžbi</h4>
+                        <h3>Podaci o narudžbi</h3>
                         <div class="information-name"></div>
                         <div class="information-address"></div>
                         <div class="information-postal-city"></div>

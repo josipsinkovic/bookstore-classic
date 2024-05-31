@@ -1,5 +1,13 @@
 # Changelog
 
+## v0.6.0 (2024-05-31)
+
+- added CSS styling throughout the whole project
+- began with implementing responsive design
+- added SQL queries for remaining elements in the categories
+- added product pages for every book
+- various code improvements
+
 ## v0.5.0 (2024-04-11)
 
 - implemented checkout process

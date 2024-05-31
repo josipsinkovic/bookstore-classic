@@ -216,16 +216,34 @@ document.addEventListener('DOMContentLoaded', function() {
         // Check the selected payment method and adjust the display accordingly
         if (method === 'on-delivery') {
             document.querySelector('.billing-on-delivery .billing-body').style.display = 'block';
+            document.querySelector('.billing-on-delivery .billing-header').style.borderBottomLeftRadius = 0;
+            document.querySelector('.billing-on-delivery .billing-header').style.borderBottomRightRadius = 0;
             document.querySelector('.billing-card .billing-body').style.display = 'none';
+            document.querySelector('.billing-card .billing-header').style.borderBottomLeftRadius = '10px';
+            document.querySelector('.billing-card .billing-header').style.borderBottomRightRadius = '10px';
             document.querySelector('.billing-slip .billing-body').style.display = 'none';
+            document.querySelector('.billing-slip .billing-header').style.borderBottomLeftRadius = '10px';
+            document.querySelector('.billing-slip .billing-header').style.borderBottomRightRadius = '10px';
         } else if (method === 'card') {
             document.querySelector('.billing-on-delivery .billing-body').style.display = 'none';
+            document.querySelector('.billing-on-delivery .billing-header').style.borderBottomLeftRadius = '10px';
+            document.querySelector('.billing-on-delivery .billing-header').style.borderBottomRightRadius = '10px';
             document.querySelector('.billing-card .billing-body').style.display = 'block';
+            document.querySelector('.billing-card .billing-header').style.borderBottomLeftRadius = 0;
+            document.querySelector('.billing-card .billing-header').style.borderBottomRightRadius = 0;
             document.querySelector('.billing-slip .billing-body').style.display = 'none';
+            document.querySelector('.billing-slip .billing-header').style.borderBottomLeftRadius = '10px';
+            document.querySelector('.billing-slip .billing-header').style.borderBottomRightRadius = '10px';
         } else if (method === 'slip') {
             document.querySelector('.billing-on-delivery .billing-body').style.display = 'none';
+            document.querySelector('.billing-on-delivery .billing-header').style.borderBottomLeftRadius = '10px';
+            document.querySelector('.billing-on-delivery .billing-header').style.borderBottomRightRadius = '10px';
             document.querySelector('.billing-card .billing-body').style.display = 'none';
+            document.querySelector('.billing-card .billing-header').style.borderBottomLeftRadius = '10px';
+            document.querySelector('.billing-card .billing-header').style.borderBottomRightRadius = '10px';
             document.querySelector('.billing-slip .billing-body').style.display = 'block';
+            document.querySelector('.billing-slip .billing-header').style.borderBottomLeftRadius = 0;
+            document.querySelector('.billing-slip .billing-header').style.borderBottomRightRadius = 0;
         }
     }
 
@@ -483,6 +501,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             throw new Error("HTTP error " + response.status);
                         }
                     }
+
+                    localStorage.removeItem('cart');
 
                     // Redirect user to the details page of the current order
                     window.location.href = `/user/account/order/?order_id=${orderID}`;

@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * Validates user registration form input fields and displays error messages if validation fails.
      * If all input is valid, sends a POST request to the register.php file and handles the server response.
      */
-    function registerValidate() {
+    async function registerValidate() {
         let fnameErr = "", lnameErr = "", emailErr = "", passErr = "", confPassErr = "";
 
         let inputFirstName = document.getElementById("first-name").value;
@@ -80,35 +80,42 @@ document.addEventListener("DOMContentLoaded", function() {
             let formData = new FormData(form);
 
             // Send a POST request to the registration script
-            let xhttp = new XMLHttpRequest();
-            xhttp.open("POST", "/user/auth/register.php", true);
-            xhttp.send(formData);
+            let response = await fetch('/user/auth/register.php', {
+                method: 'POST',
+                body: formData
+            });
 
-            // Handle the server response
-            xhttp.onreadystatechange = function() {
-                if (xhttp.readyState === 4 && xhttp.status === 200) {
-                    let response = JSON.parse(xhttp.responseText);
-                    if (response.status === "error") {
-                        // Display error message
-                        document.getElementById("globalMessage").textContent = response.message;
-                    } else if (response.status === "success") {
-                        // Display success message and redirect to home page
-                        document.getElementById("globalMessage").textContent = response.message;
+            if (!response.ok) {
+                throw new Error("HTTP error " + response.status);
+            }
 
-                        // If we were redirected from the checkout page redirect back, else redirect to the home page
-                        let url = window.location.search;
-                        let params = new URLSearchParams(url);
-                        if (params.get('return') === 'checkout') {
-                            // Add delivery parameter if exists
-                            let newParams = new URLSearchParams();
-                            if (params.get('del')) {
-                                newParams.append('del', params.get('del'));
-                            }
-                            window.location.href = '/checkout/?' + newParams.toString();
-                        } else {
-                            window.location.href = "/";
-                        }
+            let message = await response.json();
+
+            if (message.status === "error") {
+                // Display error message
+                let HTML = `<i class="fa-solid fa-circle-exclamation fa-2x" style="color: #80000d;"></i><p>${message.message}</p>`;
+                document.getElementById("globalMessage").innerHTML = HTML;
+                document.getElementById("globalMessage").classList.add('red');
+                document.getElementById("globalMessage").classList.remove('green');
+            } else if (message.status === "success") {
+                // Display success message and redirect to home page
+                let HTML = `<i class="fa-solid fa-circle-check fa-2x" style="color: #03651a;"></i><p>${message.message}</p>`;
+                document.getElementById("globalMessage").innerHTML = HTML;
+                document.getElementById("globalMessage").classList.add('green');
+                document.getElementById("globalMessage").classList.remove('red');
+
+                // If we were redirected from the checkout page redirect back, else redirect to the home page
+                let url = window.location.search;
+                let params = new URLSearchParams(url);
+                if (params.get('return') === 'checkout') {
+                    // Add delivery parameter if exists
+                    let newParams = new URLSearchParams();
+                    if (params.get('del')) {
+                        newParams.append('del', params.get('del'));
                     }
+                    window.location.href = '/checkout/?' + newParams.toString();
+                } else {
+                    window.location.href = "/";
                 }
             }
         }
@@ -119,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function() {
      * Validates user login form input fields (e-mail and password).
      * If all input is valid, sends a POST request to the login.php file and handles the server response.
      */
-    function loginValidate() {
+    async function loginValidate() {
         let emailErr = "", passErr = "";
 
         let inputEmail = document.getElementById("email").value;
@@ -148,46 +155,53 @@ document.addEventListener("DOMContentLoaded", function() {
             document.getElementById("emailErr").textContent = emailErr;
             document.getElementById("passErr").textContent = passErr;
         } else {
-           // Clear previous error messages
-           document.querySelectorAll('form > span').forEach(span => span.textContent = '');
+            // Clear previous error messages
+            document.querySelectorAll('form > span').forEach(span => span.textContent = '');
 
-           // Prepare form data for submission
-           let form = document.getElementById('loginForm');
-           let formData = new FormData(form);
+            // Prepare form data for submission
+            let form = document.getElementById('loginForm');
+            let formData = new FormData(form);
 
-           // Send a POST request to the registration script
-           let xhttp = new XMLHttpRequest();
-           xhttp.open("POST", "/user/auth/login.php", true);
-           xhttp.send(formData);
+            // Send a POST request to the login script
+            let response = await fetch('/user/auth/login.php', {
+                method: 'POST',
+                body: formData
+            });
 
-           // Handle the server response
-           xhttp.onreadystatechange = function() {
-               if (xhttp.readyState === 4 && xhttp.status === 200) {
-                   let response = JSON.parse(xhttp.responseText);
-                   if (response.status === "error") {
-                        // Display error message
-                        document.getElementById("globalMessage").textContent = response.message;
-                   } else if (response.status === "success") {
-                        // Display success message and redirect to home page
-                        document.getElementById("globalMessage").textContent = response.message;
+            if (!response.ok) {
+                throw new Error("HTTP error " + response.status);
+            }
+
+            let message = await response.json();
+
+            if (message.status === "error") {
+                // Display error message
+                let HTML = `<i class="fa-solid fa-circle-exclamation fa-2x" style="color: #80000d;"></i><p>${message.message}</p>`
+                document.getElementById("globalMessage").innerHTML = HTML;
+                document.getElementById("globalMessage").classList.add('red');
+                document.getElementById("globalMessage").classList.remove('green');
+            } else if (message.status === "success") {
+                // Display success message and redirect to home page
+                let HTML = `<i class="fa-solid fa-circle-check fa-2x" style="color: #03651a;"></i><p>${message.message}</p>`;
+                document.getElementById("globalMessage").innerHTML = HTML;
+                document.getElementById("globalMessage").classList.add('green');
+                document.getElementById("globalMessage").classList.remove('red');
                        
-                        // If we were redirected from the checkout page redirect back, else redirect to the home page
-                        let url = window.location.search;
-                        let params = new URLSearchParams(url);
-                        if (params.get('return') === 'checkout') {
-                            // Add delivery parameter if exists
-                            let newParams = new URLSearchParams();
-                            if (params.get('del')) {
-                                newParams.append('del', params.get('del'));
-                            }
-                            window.location.href = '/checkout/?' + newParams.toString();
-                        } else {
-                            window.location.href = "/";
-                        }
-                   }
-               }
+                // If we were redirected from the checkout page redirect back, else redirect to the home page
+                let url = window.location.search;
+                let params = new URLSearchParams(url);
+                if (params.get('return') === 'checkout') {
+                    // Add delivery parameter if exists
+                    let newParams = new URLSearchParams();
+                    if (params.get('del')) {
+                        newParams.append('del', params.get('del'));
+                    }
+                    window.location.href = '/checkout/?' + newParams.toString();
+                } else {
+                    window.location.href = "/";
+                }
            }
-        }
+       }
     }
 
     // Function for redirecting from login page to register page and vice versa
