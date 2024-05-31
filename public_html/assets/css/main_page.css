@@ -13,15 +13,21 @@ main .container {
 }
 
 .banner {
-    width: 1000px;
+    width: 1190px;
     position: relative;
+    margin: 20px 0 10px;
 }
 
 .banner .buttons i, .new-products .buttons i, .croatian-literature .buttons i {
     padding: 22px 15px;
-    background: #fff;
+    background: var(--white);
     text-align: center;
     z-index: 1;
+    transition: .3s;
+}
+
+.banner .buttons i:hover, .new-products .buttons i:hover, .croatian-literature .buttons i:hover {
+    color: var(--fg-color-dark);
 }
 
 .banner .left, .new-products .left, .croatian-literature .left {
@@ -50,9 +56,51 @@ main .container {
     display: block;
 }
 
+.carousel {
+    overflow-x: scroll;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+}
+
+.carousel-item {
+    scroll-snap-align: center;
+}
+
 .new-products {
-    width: 1000px;
+    width: 1190px;
     position: relative;
+    margin: 10px 0 30px;
+}
+
+.new-products-header, .discounts-header, .croatian-literature-header {
+    border-bottom: 1px solid var(--black);
+    margin-bottom: 10px;
+    padding-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.new-products-header a, .discounts-header a, .croatian-literature-header a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--black);
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: .3s;
+}
+
+.new-products-header a:hover, .discounts-header a:hover, .croatian-literature-header a:hover {
+    color: var(--fg-color);
+}
+
+.new-products-header a i, .discounts-header a i, .croatian-literature-header a i {
+    color: var(--fg-color);
+}
+
+.new-products-header a > *, .discounts-header a > *, .croatian-literature-header a > * {
+    padding: 0 2px;
 }
 
 .new-products .carousel-item, .croatian-literature .carousel-item {
@@ -66,14 +114,90 @@ main .container {
 }
 
 .discounts {
-    width: 1000px;
+    width: 1190px;
+    margin: 10px 0 30px;
+}
+
+.quote {
+    margin: 10px 0 30px;
+    padding: 10px;
+    border-block: 1px solid var(--black);
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.quote-header h1 {
+    text-transform: uppercase;
+}
+
+.quote-content {
+    padding: 30px 10px;
+    width: 80%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.quote-text, .quote-person {
+    margin: 5px 0;
+    font-style: italic;
+    font-size: 1.1rem;
+}
+
+.quote-content .quote-left {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    color: var(--fg-color);
+}
+
+.quote-content .quote-right {
+    position: absolute;
+    bottom: 0;
+    right: 20px;
+    color: var(--fg-color);
+}
+
+.quote-content i {
+    cursor: auto;
 }
 
 .croatian-literature {
-    width: 1000px;
+    width: 1190px;
     position: relative;
+    margin: 10px 0 30px;
 }
 
 /*.carousel-item:has([id="undefined"]) {
     display: none;
 }*/
+
+.px1000 {
+    display: none;
+}
+
+
+@media screen and (max-width: 1200px) {
+    .banner {
+        width: 985px;
+    }
+    .new-products {
+        width: 985px;
+    }
+    .discounts {
+        width: 985px;
+    }
+    .croatian-literature {
+        width: 985px;
+    }
+    .px1200 {
+        display: none;
+    }
+    .px1000 {
+        display: block;
+    }
+}

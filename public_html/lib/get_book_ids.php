@@ -10,6 +10,9 @@ if ($conn->connect_error) {
 // Extract the SQL query from the POST request
 $sqlQuery = $_POST['sql'];
 
+// Set character encoding to UTF-8 for proper handling of Unicode characters
+mysqli_set_charset($conn, "utf8");
+
 // Fetch book ids from database
 $stmt = $conn->prepare($sqlQuery);
 $stmt->execute();

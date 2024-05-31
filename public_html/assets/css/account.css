@@ -3,38 +3,154 @@
 main .container {
     display: flex;
     flex-direction: column;
+    width: 1190px;
 }
 
 .account-container {
     display: flex;
+    margin: 20px 0;
+}
+
+.my-account {
+    margin-right: 30px;
+    display: flex;
+    flex-direction: column;
+    align-self: flex-start;
+    font-size: 1.1rem;
+    border: 1px solid var(--black);
+    border-radius: 10px;
+}
+
+.my-account > * {
+    padding: 12px 100px 12px 15px;
+}
+
+.my-account > *:hover {
+    cursor: pointer;
 }
 
 .my-information, .my-address, .my-orders {
     display: none;
+    flex: 1;
 }
 
 .active {
     display: block;
 }
 
+.my-account > .highlight:nth-child(1) {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.my-account > .highlight:nth-child(3) {
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
 .highlight {
-    background: #00f;
+    background: var(--fg-color);
+    color: var(--white);
+}
+
+.user-data, .user-change-password, .change-address {
+    display: flex;
+    flex-direction: column;
+    margin: 0 20px;
+    margin-bottom: 30px;
+}
+
+.user-data h2, .user-change-password h2, .change-address h2, .my-orders h2 {
+    padding: 4px 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--black);
+}
+
+.my-orders h2 {
+    border: none;
+}
+
+.user-data input, .user-change-password input, .change-address input, .change-address select {
+    padding: 10px;
+    font-size: 1.1rem;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+    
+}
+
+.user-data label, .user-change-password label, .change-address label {
+    margin-bottom: 2px;
+}
+
+.user-data span, .user-change-password span, .change-address span {
+    margin-bottom: 10px;
+    color: var(--red);
+}
+
+#user-data-submit, #user-password-change, #user-address-change {
+    border-radius: 10px;
+    background: var(--fg-color);
+    color: var(--white);
+    transition: .3s;
+}
+
+#user-data-submit:hover, #user-password-change:hover, #user-address-change:hover {
+    background: var(--fg-color-dark);
+    cursor: pointer;
+}
+
+.statusGreen {
+    background: var(--green);
+    color: var(--white);
+    border-radius: 5px;
+    padding: 2px 0;
+}
+
+.statusBlue {
+    background: var(--fg-color);
+    color: var(--white);
+    border-radius: 5px;
+    padding: 2px 0;
+}
+
+.statusRed {
+    background: var(--red);
+    color: var(--white);
+    border-radius: 5px;
+    padding: 2px 0;
 }
 
 .orders-table table {
     border-collapse: collapse;
+    width: 80%;
 }
 
 .orders-table table th, .orders-table table td {
-    border-block: 1px solid #000;
+    border-block: 1px solid var(--black);
     text-align: center;
     padding: 4px;
+}
+
+.orders-table a {
+    text-decoration: none;
+    color: var(--black);
+    font-weight: bold;
+    transition: .1s;
+}
+
+.orders-table a:hover {
+    cursor: pointer;
+    color: var(--fg-color-dark);
+}
+
+main .container:has(.order-container) {
+    align-items: center;
 }
 
 .order-container {
     display: flex;
     flex-direction: column;
-    width: 1000px;
+    width: 80%;
 }
 
 .order-container > * {
@@ -49,15 +165,20 @@ main .container {
 }
 
 .cancel-order {
-    padding: 10px 6px;
-    background: rgb(255, 0, 0);
-    color: #fff;
+    padding: 10px 8px;
+    background: #e50000;
+    color: var(--white);
     border-radius: 20px;
     cursor: pointer;
+    transition: .3s;
+}
+
+.cancel-order:hover {
+    background: var(--dark-red);
 }
 
 .order-details {
-    border-bottom: 1px solid #000;
+    border-bottom: 1px solid var(--black);
 }
 
 .order-details-table table {
@@ -67,9 +188,13 @@ main .container {
 }
 
 .order-details-table table th, .order-details-table table td {
-    border-block: 1px solid #000;
+    border-block: 1px solid var(--black);
     text-align: center;
     padding: 4px;
+}
+
+.order-details-table tr:not(:nth-child(1)) {
+    font-size: 1.1rem;
 }
 
 .order-details-summary {
@@ -85,6 +210,10 @@ main .container {
 .order-details-summary > table tr td:nth-child(2), .order-details-summary > table tr th:nth-child(2){
     text-align: right;
     padding-left: 5px;
+}
+
+.order-information-details h3 {
+    margin-bottom: 4px;
 }
 
 .order-status-cancel {
@@ -103,15 +232,135 @@ main .container {
 }
 
 .cancel-popup {
+    width: 280px;
+    text-align: center;
     position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
-    padding: 10px;
-    background: #000;
-    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 8px var(--black);
+    background: var(--dark-red);
+    color: var(--white);
     z-index: 101;
 }
 
+.cancel-popup > div {
+    display: flex;
+    justify-content: space-around;
+    margin: 5px 0;
+}
+
+.cancel-popup button {
+    padding: 8px 10px;
+    border: 1px solid var(--grey);
+    border-radius: 5px;
+}
+
+.cancel-popup button:hover {
+    cursor: pointer;
+}
+
+.login, .register {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+    border: 1px solid var(--black);
+    border-radius: 5px;
+    margin: 15px 0 20px;
+}
+
+.login-header, .register-header {
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid var(--black);
+    margin: 10px 0;
+}
+
+.login-header h1, .register-header h1 {
+    margin: 5px 0;
+}
+
+#loginForm, #registerForm {
+    display: flex;
+    flex-direction: column;
+    padding: 25px;
+    width: 400px;
+}
+
+#loginForm input:not([type="button"]), #registerForm input:not([type="button"]) {
+    padding: 5px;
+    font-size: 1rem;
+}
+
+.login br, .register br {
+    margin: 10px 0;
+}
+
+#loginForm input[type="button"], #registerForm input[type="button"] {
+    padding: 10px 0;
+    margin: 10px 0;
+    font-size: 1.1rem;
+    background: var(--fg-color);
+    color: var(--white);
+    border: 1px solid var(--black);
+    border-radius: 10px;
+}
+
+#loginForm input[type="button"]:hover, #registerForm input[type="button"]:hover {
+    cursor: pointer;
+}
+
+#loginForm span, #registerForm span {
+    color: var(--red);
+}
+
+#loginForm small, #registerForm small {
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+#loginForm small a, #registerForm small a {
+    color: var(--fg-color);
+    text-decoration: none;
+    transition: .3s;
+}
+
+#loginForm small a:hover, #registerForm small a:hover {
+    color: var(--fg-color-dark);
+}
+
+#globalMessage {
+    padding: 20px 10px;
+    display: flex;
+    align-items: center;
+    color: var(--white);
+    margin-bottom: 10px;
+}
+
+#globalMessage > * {
+    margin: 0 5px;
+}
+
+#globalMessage.red {
+    background: var(--light-red);
+}
+
+#globalMessage.green {
+    background: var(--green);
+}
+
+@media screen and (max-width: 1200px) {
+    main .container {
+        width: 985px;
+    }
+    .orders-table table {
+        width: 90%;
+    }
+    .order-container {
+        width: 90%;
+    }
+}

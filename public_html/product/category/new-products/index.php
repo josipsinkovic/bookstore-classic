@@ -5,14 +5,11 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/assets/css/base.css">
+    <?php include('../../../includes/head.php'); ?>
+    <title>Novi proizvodi | Classic</title>
     <link rel="stylesheet" href="/assets/css/categories.css">
     <script src="/assets/js/fetch_books.js"></script>
     <script src="/assets/js/cart.js"></script>
-    <script src="https://kit.fontawesome.com/8bbbed924d.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>    
@@ -25,9 +22,10 @@ session_start();
                 <div class="per-page">
                     <p>Prikaži</p>
                     <select>
-                        <option value="10">10</option>
-                        <option value="20">20</option>
-                        <option value="30">30</option>
+                        <option value="12">12</option>
+                        <option value="18">18</option>
+                        <option value="24">24</option>
+                        <option value="32">32</option>
                     </select>
                     <p>po stranici</p>
                 </div>

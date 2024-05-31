@@ -5,13 +5,10 @@ session_start();
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/assets/css/base.css">
+    <?php include('../../includes/head.php'); ?>
+    <title>Košarica | Classic</title>
     <link rel="stylesheet" href="/assets/css/checkout.css">
     <script src="/assets/js/cart.js"></script>
-    <script src="https://kit.fontawesome.com/8bbbed924d.js" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>    

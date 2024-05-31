@@ -26,22 +26,7 @@ $bookData = array();
 
 while ($row = $result->fetch_assoc()) {
     // Create an associative array for the book and append it to the bookData array
-    $bookData[] = array(
-        'title' => $row['title'],
-        'first_name' => $row['first_name'],
-        'last_name' => $row['last_name'],
-        'publication_date' => $row['publication_date'],
-        'price' => $row['price'],
-        'discount' => $row['discount'],
-        'pages_number' => $row['pages_number'],
-        'original_language' => $row['original_language'],
-        'binding' => $row['binding'],
-        'format_width' => $row['format_width'],
-        'format_height' => $row['format_height'],
-        'description' => $row['description'],
-        'image_url' => $row['image_url'],
-        'quantity' => $row['quantity']
-    );
+    $bookData[] = $row;
 }
 
 $stmt->close();

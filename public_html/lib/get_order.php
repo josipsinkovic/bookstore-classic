@@ -30,7 +30,6 @@ $stmt->bind_param("i", $orderID);
 $stmt->execute();
 $result = $stmt->get_result();
 
-//$orderData = array();
 // Put order details in $orderData array
 while ($row = $result->fetch_assoc()) {
     $orderData = array(

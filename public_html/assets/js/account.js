@@ -107,18 +107,22 @@ document.addEventListener('DOMContentLoaded', async function() {
             let date = new Date(order.order_date).toLocaleDateString('hr-HR');
             let totalPrice = parseFloat(order.total_price);
             let status = order.status;
+            let statusColor;
 
-            // Adjust status text based on order status
+            // Adjust status text and color based on order status
             if (status === 'completed') {
                 status = 'Isporučeno';
+                statusColor = 'statusGreen';
             } else if (status === 'canceled') {
                 status = 'Otkazano';
+                statusColor = 'statusRed';
             } else if (status === 'pending') {
                 status = 'Na čekanju';
+                statusColor = 'statusBlue';
             }
 
             // Construct table row for the order and append it to the HTML table string
-            HTMLtable += `<tr><td class="order-id">${id}</td><td>${date}</td><td>${totalPrice}€</td><td>${status}</td><td><a href="/user/account/order/?order_id=${id}">Prikaz narudžbe</a></td></tr>`;
+            HTMLtable += `<tr><td class="order-id">#${id}</td><td>${date}</td><td>${totalPrice}€</td><td><p class="${statusColor}">${status}</p></td><td><a href="/user/account/order/?order_id=${id}">Prikaz narudžbe</a></td></tr>`;
         });
 
         HTMLtable += '</table>';
@@ -134,6 +138,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         let orderID = params.get('order_id');
 
         document.querySelector('.order-header').innerHTML = `Narudžba #${orderID}`;
+        document.title = `Narudžba #${orderID} | Classic`;
 
         // Fetch order information based on the order ID
         let param = "orderID=" + encodeURIComponent(orderID);
@@ -178,7 +183,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         document.querySelector('.information-postal-city').innerHTML = `${orderInformation.postal_code} ${orderInformation.city}`;
         document.querySelector('.information-phone').innerHTML = `telefon: ${orderInformation.phone_number}`;
         document.querySelector('.information-payment-method').innerHTML = 'Metoda plaćanja: ';
-        document.querySelector('.information-payment-method').innerHTML += (orderInformation.payment_method === 'on-delivery') ? 'pouzeće' : (orderInformation.payment_method === 'card') ? 'kartično' : (orderInformation.payment_method === 'slip') ? 'virmansko' : '';
+        document.querySelector('.information-payment-method').innerHTML += (orderInformation.payment_method === 'on-delivery') ? '<b>pouzeće</b>' : (orderInformation.payment_method === 'card') ? '<b>kartično</b>' : (orderInformation.payment_method === 'slip') ? '<b>virmansko</b>' : '';
 
         // Get user's first and last name
         response = await fetch('/lib/fetch_user_details.php', {
@@ -325,9 +330,15 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             // Display appropriate message based on the status
             if (returnMessage.status === 'success') {
-                document.querySelector('#globalMessage').textContent = returnMessage.message;
+                let HTML = `<i class="fa-solid fa-circle-check fa-2x" style="color: #03651a;"></i><p>${returnMessage.message}</p>`;
+                document.querySelector('#globalMessage').innerHTML = HTML;
+                document.querySelector("#globalMessage").classList.add('green');
+                document.querySelector("#globalMessage").classList.remove('red');
             } else if (returnMessage.status === 'error') {
-                document.querySelector('#globalMessage').textContent = returnMessage.message;
+                let HTML = `<i class="fa-solid fa-circle-check fa-2x" style="color: #03651a;"></i><p>${returnMessage.message}</p>`;
+                document.querySelector('#globalMessage').innerHTML = HTML;
+                document.querySelector("#globalMessage").classList.remove('green');
+                document.querySelector("#globalMessage").classList.add('red');
             }
         }
     }
@@ -408,9 +419,15 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             // Display appropriate message based on the status
             if (returnMessage.status === 'success') {
-                document.querySelector('#globalMessage').textContent = returnMessage.message;
+                let HTML = `<i class="fa-solid fa-circle-check fa-2x" style="color: #03651a;"></i><p>${returnMessage.message}</p>`;
+                document.querySelector('#globalMessage').innerHTML = HTML;
+                document.querySelector("#globalMessage").classList.add('green');
+                document.querySelector("#globalMessage").classList.remove('red');
             } else if (returnMessage.status === 'error') {
-                document.querySelector('#globalMessage').textContent = returnMessage.message;
+                let HTML = `<i class="fa-solid fa-circle-check fa-2x" style="color: #03651a;"></i><p>${returnMessage.message}</p>`;
+                document.querySelector('#globalMessage').innerHTML = HTML;
+                document.querySelector("#globalMessage").classList.remove('green');
+                document.querySelector("#globalMessage").classList.add('red');
             }
         }
     }
@@ -476,9 +493,15 @@ document.addEventListener('DOMContentLoaded', async function() {
 
             // Display appropriate message based on the status
             if (returnMessage.status === 'success') {
-                document.querySelector('#globalMessage').textContent = returnMessage.message;
+                let HTML = `<i class="fa-solid fa-circle-check fa-2x" style="color: #03651a;"></i><p>${returnMessage.message}</p>`;
+                document.querySelector('#globalMessage').innerHTML = HTML;
+                document.querySelector("#globalMessage").classList.add('green');
+                document.querySelector("#globalMessage").classList.remove('red');
             } else if (returnMessage.status === 'error') {
-                document.querySelector('#globalMessage').textContent = returnMessage.message;
+                let HTML = `<i class="fa-solid fa-circle-check fa-2x" style="color: #03651a;"></i><p>${returnMessage.message}</p>`;
+                document.querySelector('#globalMessage').innerHTML = HTML;
+                document.querySelector("#globalMessage").classList.remove('green');
+                document.querySelector("#globalMessage").classList.add('red');
             }
         }
     }
